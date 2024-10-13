@@ -23,3 +23,29 @@ MovieMingle is a web application that recommends movies to users based on their 
 ▎**UNLIKE** - Unlike other platforms that do not provide personalized movie recommendations.
 
 ▎**OUR PRODUCT** - Our app provides customized movie suggestions based on your individual preferences, making it easy to find what to watch next.
+
+
+## 📖 User Stories
+
+- [ ] **As a** potential user, **I want** to create a personal account on the platform, **so that** I can use this application.
+
+- [ ] **As a** user, **I want** to login to my MovieMingle account, **so that** I can access my profile. 
+
+- [ ] **As a** new user, **I want** an intuitive interface, **so that** I can navigate quickly through the app.
+
+- [ ] **As a** user, **I want** to browse through the movie collection, **so that** I can explore them. 
+
+- [ ] **As a** casual movie watcher, **I want** to check the movies I have already watched, **so that** I could further review them.
+
+- [ ] **As a** registered user, **I want** to rate movies after watching them, **so that** the app can provide recommendations in the future.
+
+- [ ] **As a** user, **I want** to be able to edit my watched list, **so that** I can prevent possible mistakes.
+
+- [ ] **As a** user, **I want** to be able to edit my reviews, **so that** I can update them if I change my mind. 
+
+- [ ] **As a** cinephile, **I want** to ask for personalized movie recommendations, **so that** I can easily find films that match my unique tastes.  
+     
+- [ ] **As a** user, **I want** a comprehensive analytics dashboard, **so that** I can have an insight into my movie watching habits . 
+
+
+
