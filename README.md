@@ -6,8 +6,8 @@ MovieMingle este o aplicație web care recomandă filme utilizatorilor în func�
 ## 👥 Echipa
 ### Team Name: **4errors**
 - [Lungu Laura](https://github.com/LVanesa)
-- [Negoita Raluca](https://github.com/ncraluca)
-- [Popeanga Antonia](https://github.com/membru3)
+- [Negoiță Raluca](https://github.com/ncraluca)
+- [Popeangă Antonia](https://github.com/antoniapopeanga)
 - [Popa Jasmine](https://github.com/jasminepopa3)
 
 
