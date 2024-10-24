@@ -43,7 +43,7 @@ MovieMingle is a web application that recommends movies to users based on their 
 
 - [ ] **As a** user, **I want** to be able to edit my reviews, **so that** I can update them if I change my mind. 
 
-- [ ] **As a** cinephile, **I want** to ask for personalized movie recommendations, **so that** I can easily find films that match my unique tastes.  
+- [ ] **As a** cinephile, **I want** to ask for personalized movie recommendations, **so that** I can easily find films that match my unique taste.  
      
 - [ ] **As a** user, **I want** a comprehensive analytics dashboard, **so that** I can have an insight into my movie watching habits . 
 
