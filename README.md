@@ -89,7 +89,6 @@ MovieMingle is a web application that recommends movies to users based on their 
 **Requirements:**
 * Implement an "Edit" option for each movie in the "Watched Movies" section.
 * Allow users to add or remove movies from the watched list.
-* Ensure changes are saved and updated in real-time.
 
 ### User Story: As a user, I want to be able to edit my reviews, so that I can update them if I change my mind.
 **Requirements:**
