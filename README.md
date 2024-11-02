@@ -61,6 +61,7 @@ MovieMingle is a web application that recommends movies to users based on their 
 | **To-Watch Movie List** | - Add any movie from the database<br>- Delete movie from the list<br>- Browse through movie list<br>- Transfer movie from to-watch to watched list<br>- Filter based on movie genres |
 | **Recommended Movie List** | - Filter based on movie genres<br>- Add a movie to the to-watch list<br>- Browse through movie list<br>- Press "Surprise Me" button<br>- Filter based on other users' ratings |
 | **Surprise Me Page** | - Discover new movie<br>- Add the movie to the to-watch list                    |
+| **Movie Preferences Dashboard Page** | - View analyzed ranked movie preferences by genre <br> - Track viewing time <br> - Explore personalized insights |
 
 </div>
 
