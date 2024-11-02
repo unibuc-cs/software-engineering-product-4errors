@@ -126,8 +126,8 @@ MovieMingle is a web application that recommends movies to users based on their 
 
 
 ## 📊 UML Diagrams
-### User Case Diagram
-![User Case Diagram](moviemingle_use_case_diagram.png)
+### Use Case Diagram
+![Use Case Diagram](moviemingle_use_case_diagram.png)
 <br>
 ### Class Diagram
 ![Class Diagram](moviemingle_class_diagram.png)
