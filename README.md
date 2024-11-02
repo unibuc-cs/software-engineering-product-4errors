@@ -48,6 +48,66 @@ MovieMingle is a web application that recommends movies to users based on their 
 - [ ] **As a** user, **I want** a comprehensive analytics dashboard, **so that** I can have an insight into my movie watching habits . 
 
 
+# 📋 Requirements
+
+### User Story: As a potential user, I want to create a personal account on the platform, so that I can use this application.
+**Requirements:**
+* Implement a "Sign Up" button on the landing page.
+* Create a registration form with fields for username, email, password, and any other necessary information.
+* Validate user input and provide feedback for errors.
+
+### User Story: As a user, I want to login to my MovieMingle account, so that I can access my profile.
+**Requirements:**
+* Implement a "Login" button on the landing page.
+* Create a login form with fields for email and password.
+* Validate user credentials and provide feedback for incorrect logins.
+
+### User Story: As a new user, I want an intuitive interface, so that I can navigate quickly through the app.
+**Requirements:**
+* Design a user-friendly interface with clear navigation menus and icons.
+* Conduct usability testing to ensure intuitive navigation.
+
+### User Story: As a user, I want to browse through the movie collection, so that I can explore them.
+**Requirements:**
+* Display a searchable and filterable movie collection on the movie page.
+* Implement filters for genres and other attributes.
+* Allow users to view movie details upon selection.
+
+### User Story: As a casual movie watcher, I want to check the movies I have already watched, so that I could further review them.
+**Requirements:**
+* Create a "Watched Movies" page in the user menu.
+* Display a list of movies with titles, ratings, etc.
+* Provide options to view details or edit the watched list.
+
+### User Story: As a registered user, I want to rate movies after watching them, so that the app can provide recommendations in the future.
+**Requirements:**
+* Allow users to rate movies on a scale (e.g., 1 to 5 stars).
+* Implement a system to record and save ratings associated with user profiles.
+* Use ratings to influence future movie recommendations.
+
+### User Story: As a user, I want to be able to edit my watched list, so that I can prevent possible mistakes.
+**Requirements:**
+* Implement an "Edit" option for each movie in the "Watched Movies" section.
+* Allow users to add or remove movies from the watched list.
+* Ensure changes are saved and updated in real-time.
+
+### User Story: As a user, I want to be able to edit my reviews, so that I can update them if I change my mind.
+**Requirements:**
+* Allow users to access their reviews from the movie profile.
+* Implement an "Edit Review" option to modify existing reviews.
+* Save updated reviews and display them correctly.
+
+### User Story: As a cinephile, I want to ask for personalized movie recommendations, so that I can easily find films that match my unique taste.
+**Requirements:**
+* Implement a recommendation algorithm based on user preferences and ratings.
+* Provide a section for personalized recommendations.
+
+### User Story: As a user, I want a comprehensive analytics dashboard, so that I can have an insight into my movie watching habits.
+**Requirements:**
+* Design an analytics dashboard that summarizes viewing statistics (e.g., genres watched, time spent).
+* Allow users to access updated analytics by time periods (e.g., weekly, monthly).
+
+
 ## 🧩 Product Features
 
 <div align="center">
