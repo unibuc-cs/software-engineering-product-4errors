@@ -99,12 +99,12 @@ MovieMingle is a web application that recommends movies to users based on their 
 ### User Story: As a cinephile, I want to ask for personalized movie recommendations, so that I can easily find films that match my unique taste.
 **Requirements:**
 * Implement a recommendation algorithm based on user preferences and ratings.
-* Provide a section for personalized recommendations.
+* * Provide a page for recommended movies.
 
 ### User Story: As a user, I want a comprehensive analytics dashboard, so that I can have an insight into my movie watching habits.
 **Requirements:**
 * Design an analytics dashboard that summarizes viewing statistics (e.g., genres watched, time spent).
-* Allow users to access updated analytics by time periods (e.g., weekly, monthly).
+* Implement an "Update" button that allows users to refresh the analytics data on demand.
 
 
 ## 🧩 Product Features
