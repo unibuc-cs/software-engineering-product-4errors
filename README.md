@@ -161,6 +161,25 @@ Marnela, a single mother with three kids, struggles daily with household chores,
 
 You can view the project backlog on GitHub by clicking [here](https://github.com/orgs/unibuc-cs/projects/12).
 
+## ⏳ Prioritized Backlog
+
+| No. | Task Description                                                                                              | Priority | Estimated Time |
+|-----|---------------------------------------------------------------------------------------------------------------|----------|----------------|
+| 1   | Create a basic Spring Boot project                                                                            | High     | November         |
+| 2   | Create a database                                                                                             | High     | November         |
+| 3   | Create a register/login page and implement the register/login functionalities                                  | High     | end of November        |
+| 4   | Implement CRUD for movies and implement CRUD for reviews                                                      | High     | December        |
+| 5  | Implement the ML algorithm                                                                                    | High      | December        |
+| 6   | Create landing page for users and create a personal profile page                                             | Medium   | December        |
+| 7   | Create a navigation bar and create a menu for logged users                                                   | Medium   | end of December         |
+| 8   | Create the view for movie recommendations and implement filtering options for the movies lists               | Medium   | end of December        |
+| 9   | Implement the "Surprise Me" functionality and create a dedicated Surprise Me page                            | Medium   | January        |
+| 10   | Enable adding movies from the Surprise Me section to the to-watch list and enable adding movies from the to-watch list to the watched list | Medium   | January         |
+| 11  | Create the dashboard analytics page and implement dashboard analytics functionalities                         | Low      | January        |
+| 12  | Create a prototype design in Figma and implement the design                                                  | Low      | January        |
+| 13  | Ensure responsiveness functionality for the design and create a logo for our app                             | Low      | January         |
+
+
      
 
 
