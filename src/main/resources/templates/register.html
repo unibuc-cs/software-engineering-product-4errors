@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>MovieMingle</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    </head>
+    <body>
+
+        <div class="container py-5">
+            <div class = "row">
+                <div class="col-lg-6 mx-auto rounded border p-4">
+                    <h2 class="text-center mb-4"> Register </h2>
+                    <hr>
+                    <div th:if="${succes}"
+                         class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>Account created successfully!</strong>
+                        <a class="ms-2" href="/login">Login</a>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
+                    </div>
+
+                    <form method="post" th:object="${registerDto}">
+                        <input type="hidden" th:name="${_csrf.parameterName}"
+                               th:value="${_csrf.token}"/>
+
+                        <div class="row mb-3">
+                            <label class="col-sm-4 col-form-label">First Name</label>
+                            <div class="col-sm-8">
+                                <input class="form-control" th:field="${registerDto.firstName}">
+                                <p th:if="${#fields.hasErrors('firstName')}"
+                                   th:errorClass="text-danger"
+                                   th:errors="${registerDto.firstName}"></p>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-sm-4 col-form-label">Last Name</label>
+                            <div class="col-sm-8">
+                                <input class="form-control" th:field="${registerDto.lastName}">
+                                <p th:if="${#fields.hasErrors('lastName')}"
+                                   th:errorClass="text-danger"
+                                   th:errors="${registerDto.lastName}"></p>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-sm-4 col-form-label">E-mail</label>
+                            <div class="col-sm-8">
+                                <input class="form-control" th:field="${registerDto.email}">
+                                <p th:if="${#fields.hasErrors('email')}"
+                                   th:errorClass="text-danger"
+                                   th:errors="${registerDto.email}"></p>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-sm-4 col-form-label">Password</label>
+                            <div class="col-sm-8">
+                                <input class="form-control" type="password"
+                                       th:field="${registerDto.password}">
+                                <p th:if="${#fields.hasErrors('password')}"
+                                   th:errorClass="text-danger"
+                                   th:errors="${registerDto.password}"></p>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-sm-4 col-form-label">Confirm Password</label>
+                            <div class="col-sm-8">
+                                <input class="form-control" type="password"
+                                       th:field="${registerDto.confirmPassword}">
+                                <p th:if="${#fields.hasErrors('confirmPassword')}"
+                                   th:errorClass="text-danger"
+                                   th:errors="${registerDto.confirmPassword}"></p>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="offset-sm-4 col-sm-4 d-grid">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                            <div class="col-sm-4 d-grid">
+                                <a href="/" class="btn btn-outline-primary">Cancel</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    </body>
+</html>
