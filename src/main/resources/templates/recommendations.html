@@ -1,11 +1,10 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>MovieMingle</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Movie Recommendations</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom">
@@ -57,12 +56,42 @@
         </div>
     </div>
 </nav>
-
-
-
 <div class="container py-5">
-    <h1 class="text-center">Hello, world!</h1>
+    <h1 class="text-center">Movie Recommendations</h1>
+
+    <!-- Carusel pentru recomandări -->
+    <div th:if="${!#lists.isEmpty(recommendedMovies)}" id="recommendationsCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner" th:each="movie, iterStat : ${recommendedMovies}">
+            <div class="carousel-item" th:classappend="${iterStat.index == 0} ? 'active' : ''">
+                <div class="card mx-auto" style="max-width: 18rem;">
+                    <img src="https://via.placeholder.com/300x400" class="card-img-top" alt="Movie Image">
+                    <div class="card-body text-center">
+                        <h5 class="card-title" th:text="${movie.title} ?: 'Placeholder Title'">Placeholder Title</h5>
+                        <p class="card-text" th:text="${movie.description} ?: 'This is a placeholder description.'">
+                            Placeholder description.
+                        </p>
+                        <p class="card-text"><small class="text-muted" th:text="${movie.releaseYear} ?: '2024'">2024</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Butoane de navigare pentru carusel -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#recommendationsCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#recommendationsCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <!-- Mesaj pentru cazul în care nu sunt recomandări -->
+    <div th:if="${#lists.isEmpty(recommendedMovies)}" class="text-center mt-5">
+        <p>No recommendations available yet.</p>
+    </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

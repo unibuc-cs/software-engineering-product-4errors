@@ -18,9 +18,12 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth-> auth
                         .requestMatchers("/").permitAll()
                         .requestMatchers("/index").permitAll()
+                        .requestMatchers("/search").permitAll()
                         .requestMatchers("/register").permitAll()
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/logout").permitAll()
+                        .requestMatchers("/recommendations").permitAll()
+
                 )
                 .formLogin(form -> form
                         .defaultSuccessUrl("/", true)
