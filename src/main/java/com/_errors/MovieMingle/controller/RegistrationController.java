@@ -13,6 +13,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Date;
 
@@ -26,7 +27,7 @@ public class RegistrationController {
         RegisterDto registerDto = new RegisterDto();
         model.addAttribute(registerDto);
 
-        model.addAttribute("succes",false);
+        model.addAttribute("succes", false);
         return "register";
     }
 
@@ -34,7 +35,8 @@ public class RegistrationController {
     public String register(
             Model model,
             @Valid @ModelAttribute RegisterDto registerDto,
-            BindingResult result
+            BindingResult result,
+            RedirectAttributes redirectAttributes
     ){
         if (!registerDto.getPassword().equals(registerDto.getConfirmPassword())){
             result.addError(
@@ -55,7 +57,7 @@ public class RegistrationController {
             return "register";
         }
 
-        try{
+        try {
             // If the registration has no errors, then we create a new account
             var bCryptEncoder = new BCryptPasswordEncoder();
             AppUser newUser = new AppUser();
@@ -68,16 +70,15 @@ public class RegistrationController {
 
             repo.save(newUser);
 
-            model.addAttribute("registerDto", new RegisterDto());
-            model.addAttribute("succes",true);
-
-        }
-        catch(Exception ex){
+            // Redirecționare către pagina de login cu un mesaj de succes
+            redirectAttributes.addFlashAttribute("message", "The registration was successfully completed, please login to proceed.");
+            return "redirect:/login";  // Redirecționăm utilizatorul la login
+        } catch (Exception ex) {
             result.addError(
                     new FieldError("registerDto", "firstName", ex.getMessage())
             );
         }
+
         return "register";
     }
-
 }

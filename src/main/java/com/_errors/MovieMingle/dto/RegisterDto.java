@@ -3,8 +3,11 @@ package com._errors.MovieMingle.dto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.AssertTrue;
 
 public class RegisterDto {
+
     @NotEmpty
     private String firstName;
 
@@ -14,10 +17,22 @@ public class RegisterDto {
     @NotEmpty
     @Email
     private String email;
-    @Size(min=6, message="Minimum Password length is 6 characters")
+
+    @NotEmpty
+    @Size(min = 8, message = "Minimum Password length is 8 characters")
+    @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*(),.?\":{}|<>]).{6,}$",
+            message = "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.")
     private String password;
+
+    @NotEmpty
     private String confirmPassword;
 
+    @AssertTrue(message = "Passwords must match")
+    public boolean isPasswordConfirmed() {
+        return password != null && password.equals(confirmPassword);
+    }
+
+    // Getters și Setters
     public String getFirstName() {
         return firstName;
     }

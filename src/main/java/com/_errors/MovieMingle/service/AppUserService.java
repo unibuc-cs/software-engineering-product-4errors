@@ -14,20 +14,16 @@ public class AppUserService implements UserDetailsService {
     @Autowired
     private AppUserRepository repo;
     @Override
-    public UserDetails loadUserByUsername (String email) throws UsernameNotFoundException{
-        //TODO Auto-generated method stub
-
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         AppUser appUser = repo.findByEmail(email);
-
-        if (appUser != null){
-            var springUser = User.withUsername(appUser.getEmail())
+        if (appUser != null) {
+            return User.withUsername(appUser.getEmail())
                     .password(appUser.getPassword())
                     .roles(appUser.getRole())
                     .build();
-
-            return springUser;
+        } else {
+            throw new UsernameNotFoundException("User not found with email: " + email);
         }
-        return null;
     }
 
 }

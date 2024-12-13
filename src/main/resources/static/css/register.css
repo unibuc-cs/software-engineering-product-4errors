@@ -1,0 +1,287 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+.navbar{
+    height: 60px; /* Înălțime fixă pentru navigație */
+    width: 100%;
+    background-color: rgba(245, 220, 220, 0.8); /* Exemplu de fundal */
+    position: fixed; /* Navigație fixă deasupra paginii */
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+.background {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 60px);
+    background-image: url('/images/register_background.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    padding: 20px; /* Adaugă padding pentru dispozitive mici */
+}
+
+section {
+    position: relative;
+    width: 100%; /* Dimensiune flexibilă pentru ecrane mici */
+    max-width: 550px; /* Dimensiunea maximă */
+    background-color: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    backdrop-filter: blur(80px);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1rem 2.5rem;
+    margin: 0;
+    transition: all 0.5s ease-in-out;
+}
+
+
+.custom-title {
+    font-size: 2rem;
+    color: #fff;
+    text-align: center;
+}
+/* Stiluri pentru inputuri */
+.inputbox {
+    position: relative;
+    margin: 15px 0;
+    width: 100%; /* Flexibil pentru diferite dimensiuni */
+    border-bottom: 2px solid #fff;
+    padding-bottom: 5px;
+}
+
+.inputbox input {
+    width: 100%;
+    height: 40px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    padding: 0 35px 0 5px;
+    color: #fff;
+}
+
+.inputbox ion-icon {
+    position: absolute;
+    right: 8px;
+    color: #fff;
+    font-size: 1.2rem;
+    top: 12px;
+}
+.eye-icon {
+    position: absolute;
+    font-size: 1.2rem;
+    right: 8px;
+    top: 12px;
+    cursor: pointer;
+}
+
+.eye-icon ion-icon {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.7); /* Ajustează culoarea iconiței */
+}
+
+.inputbox label {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    color: #fff;
+    font-size: 1rem;
+    pointer-events: none;
+    transition: all 0.5s ease-in-out;
+}
+
+input:focus ~ label,
+input:valid ~ label {
+    top: -5px;
+    font-size: 0.9rem;
+    color: #a8a8a8;
+}
+
+/* Mesaje de eroare */
+.validation-error {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    font-size: 0.7rem;
+    font-weight: bold;
+    color: #501B1B;
+    position:relative;
+    width: 100%;
+    text-align: left;
+    left: 5px;
+}
+
+.custom-submit {
+    margin: 10px 0px;
+    width: 100%;
+    height: 40px;
+    border-radius: 40px;
+    background-color: rgba(255, 255, 255, 1);
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.4s ease;
+}
+
+.custom-submit:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.register {
+    font-size: 0.9rem;
+    color: #fff;
+    text-align: center;
+    margin: 25px 0 10px;
+    transition: all 0.5s ease-in-out;
+}
+
+.register p a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 600;
+    transition: all 0.5s ease-in-out;
+}
+
+.register p a:hover {
+    text-decoration: underline;
+    color: #a8a8a8;
+}
+
+/* Stilizare pentru shake efect */
+.shake {
+    animation: shake 0.5s ease-in-out 2;
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: #fff;
+    caret-color: #fff; /* Setează culoarea cursorului (caret) la alb */
+}
+.separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.separator::before,
+.separator::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5); /* Linie punctată */
+    margin: 0 10px; /* Spațiu între linie și text */
+}
+
+.separator span {
+    color: rgba(255, 255, 255, 0.7); /* Culoare text */
+    font-size: 0.9rem; /* Ajustează dimensiunea textului */
+    white-space: nowrap;
+}
+
+/* Stil pentru butonul de login cu Google */
+.oauth-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+
+    margin: 10px 0px;
+    background-color: #4285F4; /* Culoare albastră Google */
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 40px; /* Colțuri rotunjite */
+    text-decoration: none;
+    width: 100%;
+    cursor: pointer;
+}
+
+.oauth-button i {
+    margin-right: 10px; /* Spațiu între iconiță și text */
+    font-size: 20px; /* Dimensiune pentru iconiță */
+}
+
+.oauth-button:hover {
+    background-color: #357AE8; /* Culoare mai închisă la hover */
+}
+
+
+
+/* Media Queries pentru responsive */
+
+/* Dispozitive medii (tablete) */
+@media (max-width: 768px) {
+    .navbar {
+        height: 50px; /* Reduce înălțimea navbar-ului */
+    }
+
+    .background{
+        height: calc(100vh - 50px);
+    }
+
+    section {
+        padding: 1.5rem 1rem; /* Reduce padding-ul */
+    }
+
+    .custom-title {
+        font-size: 1.8rem; /* Redimensionează titlul */
+    }
+
+    .inputbox {
+        width: 100%; /* Lățime completă pe ecrane mici */
+    }
+}
+
+/* Dispozitive mici (telefoane) */
+@media (max-width: 480px) {
+    .navbar {
+        height: 50px;
+        font-size: 0.9rem;
+    }
+
+    .background {
+        padding: 20px; /* Mai mult padding pe marginile laterale */
+        height: calc(100vh - 50px);
+    }
+
+    section {
+        padding: 1rem; /* Reduce padding-ul general */
+        border-radius: 15px; /* Ajustează colțurile rotunde */
+    }
+
+    .custom-title {
+        font-size: 1.5rem; /* Titlu mai mic */
+    }
+
+    .custom-submit {
+        font-size: 0.9rem; /* Text mai mic pe buton */
+        height: 35px; /* Diminuează înălțimea */
+    }
+}
