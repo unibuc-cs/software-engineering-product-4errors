@@ -55,19 +55,39 @@
 </nav>
 <div class="background">
     <section>
+        <!-- Mesaje de validare la login -->
+        <p th:text="${accountLocked}"></p>
+        <div class="alert alert-success" role="alert" th:if="${verifiedAccountMsg != null}" style="text-align: center;">
+            <p th:text="${verifiedAccountMsg}"></p>
+        </div>
+        <div class="alert alert-success" role="alert" th:if="${resetPasswordMsg != null}" style="text-align: center;">
+            <p th:text="${resetPasswordMsg}"></p>
+        </div>
+        <div class="alert alert-danger" role="alert" th:if="${tokenError != null}" style="text-align: center;">
+            <p th:text="${tokenError}"></p>
+        </div>
+        <div class="alert alert-danger" role="alert" th:if="${invalidSession != null}" style="text-align: center;">
+            <p th:text="${invalidSession}"></p>
+        </div>
+        <p th:if="${loginError}" class="error"></p>
+
         <form action="/login" method="post" th:action="@{/login}" th:csrf="true">
+
+            <div th:if="${param.error!=null and accountLocked !=true}">
+                <div class="alert alert-danger">
+                    <span th:text="#{login.error}"/>
+                </div>
+            </div>
+            <div th:if="${param.error!=null and accountLocked ==true}">
+                <div class="alert alert-danger">
+                    <span th:text="#{user.account.locked}"/>
+                </div>
+            </div>
+
             <h1 class="custom-title">Login</h1>
             <div th:if="${message}">
                 <div class="alert alert-success" role="alert">
                     <span th:text="${message}"></span>
-                </div>
-            </div>
-            <div class="dialog-row">
-                <!-- Afișează mesajul de eroare din sesiune -->
-                <div th:if="${session.errorMessage}">
-                    <div class="alert alert-danger" role="alert">
-                        <span th:text="${session.errorMessage}"></span>
-                    </div>
                 </div>
             </div>
             <!-- Email Input -->
@@ -82,6 +102,7 @@
                 <input name="password" type="password" id="password" required>
                 <label>Password</label>
             </div>
+
             <div class="register">
                 <p><a href="#">Forgot Password?</a></p>
             </div>

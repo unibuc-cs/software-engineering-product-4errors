@@ -3,6 +3,7 @@ package com._errors.MovieMingle.model;
 import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name="users")
@@ -17,6 +18,10 @@ public class AppUser {
     private String password;
     private String role;
     private Date createdAt;
+    private boolean accountVerified;
+
+    @OneToMany(mappedBy = "user")
+    private Set<SecureToken> tokens;
 
     public int getId() {
         return id;
@@ -73,6 +78,19 @@ public class AppUser {
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
+    public boolean isAccountVerified(){
+        return accountVerified;
+    }
 
+    public void setAccountVerified(boolean accountVerified) {
+        this.accountVerified = accountVerified;
+    }
 
+    public Set<SecureToken> getTokens() {
+        return tokens;
+    }
+
+    public void setTokens(Set<SecureToken> tokens) {
+        this.tokens = tokens;
+    }
 }

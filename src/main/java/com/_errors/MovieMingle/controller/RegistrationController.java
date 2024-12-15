@@ -1,28 +1,47 @@
 package com._errors.MovieMingle.controller;
 
+import com._errors.MovieMingle.config.SecurityConfig;
+import com._errors.MovieMingle.exception.InvalidTokenException;
+import com._errors.MovieMingle.exception.UnknownIdentifierException;
+import com._errors.MovieMingle.exception.UserAlreadyExistsException;
 import com._errors.MovieMingle.model.AppUser;
 import com._errors.MovieMingle.dto.RegisterDto;
 import com._errors.MovieMingle.repository.AppUserRepository;
+import com._errors.MovieMingle.service.user.DefaultAppUserService;
+import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.thymeleaf.util.StringUtils;
 
 import java.util.Date;
 
 @Controller
+@RequestMapping("/register")
 public class RegistrationController {
-    @Autowired
-    private AppUserRepository repo;
 
-    @GetMapping("/register")
+    private static final String REDIRECT_LOGIN= "redirect:/login";
+
+    @Resource
+    private MessageSource messageSource;
+
+    @Autowired
+    private AppUserRepository userRepository;
+
+    @Autowired
+    private DefaultAppUserService userService;
+
+    @GetMapping
     public String register(Model model){
         RegisterDto registerDto = new RegisterDto();
         model.addAttribute(registerDto);
@@ -31,7 +50,7 @@ public class RegistrationController {
         return "register";
     }
 
-    @PostMapping("/register")
+    @PostMapping
     public String register(
             Model model,
             @Valid @ModelAttribute RegisterDto registerDto,
@@ -45,7 +64,7 @@ public class RegistrationController {
             );
         }
 
-        AppUser appUser = repo.findByEmail(registerDto.getEmail());
+        AppUser appUser = userRepository.findByEmail(registerDto.getEmail());
         if(appUser != null){
             result.addError(
                     new FieldError("registerDto","email",
@@ -58,27 +77,33 @@ public class RegistrationController {
         }
 
         try {
-            // If the registration has no errors, then we create a new account
-            var bCryptEncoder = new BCryptPasswordEncoder();
-            AppUser newUser = new AppUser();
-            newUser.setFirstName(registerDto.getFirstName());
-            newUser.setLastName(registerDto.getLastName());
-            newUser.setEmail(registerDto.getEmail());
-            newUser.setRole("user");
-            newUser.setCreatedAt(new Date());
-            newUser.setPassword(bCryptEncoder.encode(registerDto.getPassword()));
 
-            repo.save(newUser);
+            userService.register(registerDto);
 
-            // Redirecționare către pagina de login cu un mesaj de succes
-            redirectAttributes.addFlashAttribute("message", "The registration was successfully completed, please login to proceed.");
-            return "redirect:/login";  // Redirecționăm utilizatorul la login
-        } catch (Exception ex) {
-            result.addError(
-                    new FieldError("registerDto", "firstName", ex.getMessage())
-            );
+        } catch (UserAlreadyExistsException e ) {
+            result.rejectValue("email", "userData.email","An account already exists for this email.");
+            model.addAttribute("registrationForm", registerDto);
+            return "register";
+        }
+        model.addAttribute("registrationMsg", messageSource.getMessage("user.registration.verification.email.msg", null, LocaleContextHolder.getLocale()));
+        return "register";
+    }
+
+    @GetMapping("/verify")
+    public String verifyUser(@RequestParam(required = false) String token, final Model model, RedirectAttributes redirAttr){
+
+        if(StringUtils.isEmpty(token)){
+            redirAttr.addFlashAttribute("tokenError", messageSource.getMessage("user.registration.verification.missing.token", null, LocaleContextHolder.getLocale()));
+            return REDIRECT_LOGIN;
+        }
+        try {
+            userService.verifyUser(token);
+        } catch (InvalidTokenException e) {
+            redirAttr.addFlashAttribute("tokenError", messageSource.getMessage("user.registration.verification.invalid.token", null,LocaleContextHolder.getLocale()));
+            return REDIRECT_LOGIN;
         }
 
-        return "register";
+        redirAttr.addFlashAttribute("verifiedAccountMsg", messageSource.getMessage("user.registration.verification.success", null,LocaleContextHolder.getLocale()));
+        return REDIRECT_LOGIN;
     }
 }

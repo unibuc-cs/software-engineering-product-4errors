@@ -55,11 +55,15 @@
     </div>
 </nav>
 <div class="background">
+
+
     <section>
         <!-- Afișează mesajul de eroare, dacă există -->
-        <div th:if="${error}" style="color: red;">
-            <p th:text="${errorMessage}"></p>
+        <div class="alert alert-success" role="alert" style="text-align: center;" th:if="${registrationMsg != null}">
+            <p th:text="${registrationMsg}"></p>
         </div>
+
+        <div th:if="${registrationMsg == null}"> </div>
 
         <form id="registerForm" th:classappend="${#fields.hasErrors()} ? 'shake' : ''" th:object="${registerDto}" method="post">
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>

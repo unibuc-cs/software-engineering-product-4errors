@@ -1,4 +1,4 @@
-package com._errors.MovieMingle.service;
+package com._errors.MovieMingle.service.user;
 
 import com._errors.MovieMingle.model.AppUser;
 import com._errors.MovieMingle.repository.AppUserRepository;
@@ -10,20 +10,19 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AppUserService implements UserDetailsService {
+public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
-    private AppUserRepository repo;
+    private AppUserRepository repository;
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        AppUser appUser = repo.findByEmail(email);
-        if (appUser != null) {
-            return User.withUsername(appUser.getEmail())
-                    .password(appUser.getPassword())
-                    .roles(appUser.getRole())
-                    .build();
-        } else {
-            throw new UsernameNotFoundException("User not found with email: " + email);
+        final AppUser appUser =  repository.findByEmail(email);
+        if(appUser==null){
+            throw new UsernameNotFoundException(email);
         }
+        boolean enabled = !appUser.isAccountVerified();
+        return User.withUsername(appUser.getEmail())
+                .password(appUser.getPassword())
+                .disabled(enabled)
+                .authorities("USER").build();
     }
-
 }
