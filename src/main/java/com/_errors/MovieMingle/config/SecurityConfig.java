@@ -22,6 +22,7 @@ public class SecurityConfig {
                         .requestMatchers("/register/verify").permitAll()
                         .requestMatchers("/logout").permitAll()
                         .requestMatchers("/recommendations").permitAll()
+                        .requestMatchers("/quiz").permitAll()
                         .anyRequest().authenticated()
 
                 )

@@ -20,6 +20,8 @@ public class MovieController {
     public String searchMovies(
             @RequestParam(name = "query", required = false) String query,
             Model model) {
+
+        // Initialize the movies list
         List<Movie> movies;
 
         if (query != null && !query.trim().isEmpty()) {
@@ -30,13 +32,10 @@ public class MovieController {
             movies = movieService.getAllMovies();
         }
 
-        // Check if no movies found, clear query if so
-        if (movies.isEmpty()) {
-            query = null; // Set query to null if no results
-        }
-
-        model.addAttribute("movies", movies);
+        // Add the movies list and query to the model
+        model.addAttribute("movies", movies != null ? movies : List.of()); // Ensure empty list if null
         model.addAttribute("query", query);
+
         return "search"; // Return the search page view
     }
 }

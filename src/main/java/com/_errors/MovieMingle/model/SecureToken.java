@@ -16,14 +16,13 @@ public class SecureToken {
     @Column(unique=true)
     private String token;
 
+
     @CreationTimestamp
-    @Column(updatable = false)
+    @Column(updatable = false, columnDefinition = "DATETIME")
     private Timestamp timestamp;
 
-    @Column(updatable = false)
-    @Basic(optional = false)
+    @Column(updatable = false, columnDefinition = "DATETIME")
     private LocalDateTime expireAt;
-
     @ManyToOne
     @JoinColumn(name="user_id", referencedColumnName = "id")
     private AppUser user;

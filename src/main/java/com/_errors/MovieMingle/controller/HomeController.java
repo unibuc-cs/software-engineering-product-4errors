@@ -1,17 +1,75 @@
 package com._errors.MovieMingle.controller;
-
+import com._errors.MovieMingle.model.AppUser;
+import com._errors.MovieMingle.model.Movie;
+import com._errors.MovieMingle.repository.AppUserRepository;
+import com._errors.MovieMingle.repository.MovieRepository;
+import com._errors.MovieMingle.service.MovieService;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.ui.Model;
+import com._errors.MovieMingle.dto.RegisterDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.List;
+
+
 @Controller
 public class HomeController {
-    @GetMapping({"","/"})
-    public String home(){
+
+    @Autowired
+    private AppUserRepository userRepository;
+
+    @Autowired
+    private MovieService movieService;
+
+    @GetMapping({"", "/"})
+    public String home(Model model, HttpSession session) {
+        String loggedUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        AppUser user = userRepository.findByEmail(loggedUser);
+
+        // Check if the user is logging in for the first time or after a session expiration
+        Boolean isNewLogin = (Boolean) session.getAttribute("isNewLogin");
+
+        // If the session does not contain the flag, this is the user's first login or new session
+        if (isNewLogin == null || isNewLogin) {
+            List<Movie> bestRated = movieService.getBestRated(12);
+            model.addAttribute("randomBestRated", bestRated);
+            session.setAttribute("isNewLogin", false);  // Mark as no longer new login after this refresh
+        } else {
+            // Otherwise, use the cached list of movies (if the list was already generated before)
+            List<Movie> bestRated = (List<Movie>) session.getAttribute("cachedBestRated");
+            if (bestRated == null) {
+                // If somehow the cached list is null, fall back to refreshing the list
+                bestRated = movieService.getBestRated(12);
+                model.addAttribute("randomBestRated", bestRated);
+            } else {
+                model.addAttribute("randomBestRated", bestRated);
+            }
+        }
+
+        // Store the user information and quiz status
+        model.addAttribute("username", user.getFirstName());
+        model.addAttribute("quizCompleted", user.isQuizCompleted());
+
+        // Store the current movie list in the session for future use
+        session.setAttribute("cachedBestRated", model.getAttribute("randomBestRated"));
+
         return "index";
     }
+
+
+    @GetMapping("/quiz-page")
+    public String quizPage() {
+        return "quiz";
+    }
+
 
     @GetMapping("/login")
     public String loginPage() {
         return "login";
     }
 }
+

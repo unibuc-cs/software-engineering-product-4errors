@@ -1,7 +1,8 @@
 package com._errors.MovieMingle.controller;
 
-import com._errors.MovieMingle.service.RecommendationService;
 import com._errors.MovieMingle.model.Movie;
+import com._errors.MovieMingle.service.RecommendationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,20 +12,19 @@ import java.util.List;
 @Controller
 public class RecommendationController {
 
-    private final RecommendationService recommendationService;
+    @Autowired
+    private RecommendationService recommendationService;
 
-    public RecommendationController(RecommendationService recommendationService) {
-        this.recommendationService = recommendationService;
-    }
-
-    // Endpoint for recommendations
     @GetMapping("/recommendations")
     public String showRecommendations(Model model) {
-        // Placeholder movies from the service
-        List<Movie> recommendedMovies = recommendationService.getPlaceholderRecommendations();
+        // Fetch recommended movies
+        List<Movie> recommendedMovies = recommendationService.getRandomRecommendations();
 
-        // Add placeholder data to the model
+        // Add the list of recommended movies to the model
         model.addAttribute("recommendedMovies", recommendedMovies);
+
+        // Return the recommendations view
         return "recommendations";
     }
 }
+

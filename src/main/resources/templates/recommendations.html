@@ -49,33 +49,48 @@
             </ul>
 
             <form sec:authorize="isAuthenticated()" method="post" action="/logout">
-                <input type="hidden" th:name="${_csrf.parameterName}"
-                       th:value="${_csrf.token}" />
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                 <button type="submit" class="btn btn-danger">Logout</button>
             </form>
         </div>
     </div>
 </nav>
+
 <div class="container py-5">
     <h1 class="text-center">Movie Recommendations</h1>
 
-    <!-- Carusel pentru recomandări -->
+    <!-- Carousel for movie recommendations -->
     <div th:if="${!#lists.isEmpty(recommendedMovies)}" id="recommendationsCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner" th:each="movie, iterStat : ${recommendedMovies}">
             <div class="carousel-item" th:classappend="${iterStat.index == 0} ? 'active' : ''">
                 <div class="card mx-auto" style="max-width: 18rem;">
-                    <img src="https://via.placeholder.com/300x400" class="card-img-top" alt="Movie Image">
+                    <!-- Movie Poster -->
+                    <img th:src="@{${#strings.substring(movie.posterLink, 0, movie.posterLink.length() - 4)}}" class="card-img-top" alt="Movie Image">
+
+
                     <div class="card-body text-center">
-                        <h5 class="card-title" th:text="${movie.title} ?: 'Placeholder Title'">Placeholder Title</h5>
-                        <p class="card-text" th:text="${movie.description} ?: 'This is a placeholder description.'">
+                        <!-- Movie Title -->
+                        <h5 class="card-title" th:text="${movie.seriesTitle} ?: 'Placeholder Title'">Placeholder Title</h5>
+
+                        <!-- Movie Overview (Description) -->
+                        <p class="card-text" th:text="${movie.overview} ?: 'This is a placeholder description.'">
                             Placeholder description.
                         </p>
-                        <p class="card-text"><small class="text-muted" th:text="${movie.releaseYear} ?: '2024'">2024</small></p>
+
+                        <!-- Movie Release Year -->
+                        <p class="card-text"><small class="text-muted" th:text="${movie.releasedYear} ?: '2024'">2024</small></p>
+
+                        <!-- Movie IMDb Rating -->
+                        <p class="card-text" th:text="'IMDb Rating: ' + ${movie.imdbRating} ?: 'N/A'">IMDb Rating: N/A</p>
+
+                        <!-- Movie Runtime -->
+                        <p class="card-text" th:text="'Runtime: ' + ${movie.runtime} ?: 'Unknown'">Runtime: Unknown</p>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Butoane de navigare pentru carusel -->
+
+        <!-- Carousel Navigation Buttons -->
         <button class="carousel-control-prev" type="button" data-bs-target="#recommendationsCarousel" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
@@ -86,12 +101,12 @@
         </button>
     </div>
 
-    <!-- Mesaj pentru cazul în care nu sunt recomandări -->
+    <!-- Message if there are no recommendations -->
     <div th:if="${#lists.isEmpty(recommendedMovies)}" class="text-center mt-5">
         <p>No recommendations available yet.</p>
     </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

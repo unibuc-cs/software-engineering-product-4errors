@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Table(name="users")
+@Table(name="user")
 public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +19,7 @@ public class AppUser {
     private String role;
     private Date createdAt;
     private boolean accountVerified;
+    private boolean quizCompleted=false;
 
     @OneToMany(mappedBy = "user")
     private Set<SecureToken> tokens;
@@ -93,4 +94,13 @@ public class AppUser {
     public void setTokens(Set<SecureToken> tokens) {
         this.tokens = tokens;
     }
+
+    public boolean isQuizCompleted() {
+        return quizCompleted;
+    }
+
+    public void setQuizCompleted(boolean quizCompleted) {
+        this.quizCompleted = quizCompleted;
+    }
+
 }
