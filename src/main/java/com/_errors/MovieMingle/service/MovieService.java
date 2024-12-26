@@ -30,12 +30,12 @@ public class MovieService {
         ArrayList<Movie> highRatedMovies = movieRepository.findHighRated();
 
         if (highRatedMovies == null || highRatedMovies.isEmpty()) {
-            return randomBestRated; // Return an empty list if no high-rated movies are found
+            return randomBestRated;
         }
 
         Collections.shuffle(highRatedMovies);
 
-        number = Math.min(number, highRatedMovies.size()); // Ensure `number` is within bounds
+        number = Math.min(number, highRatedMovies.size());
         for (int i = 0; i < number; i++) {
             randomBestRated.add(highRatedMovies.get(i));
         }

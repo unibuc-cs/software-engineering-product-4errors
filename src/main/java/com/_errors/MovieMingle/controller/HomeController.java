@@ -30,19 +30,20 @@ public class HomeController {
         String loggedUser = SecurityContextHolder.getContext().getAuthentication().getName();
         AppUser user = userRepository.findByEmail(loggedUser);
 
-        // Check if the user is logging in for the first time or after a session expiration
         Boolean isNewLogin = (Boolean) session.getAttribute("isNewLogin");
 
-        // If the session does not contain the flag, this is the user's first login or new session
+
+        //refresh the list only if it is a new login
         if (isNewLogin == null || isNewLogin) {
             List<Movie> bestRated = movieService.getBestRated(12);
             model.addAttribute("randomBestRated", bestRated);
-            session.setAttribute("isNewLogin", false);  // Mark as no longer new login after this refresh
-        } else {
-            // Otherwise, use the cached list of movies (if the list was already generated before)
+            session.setAttribute("isNewLogin", false);
+        }
+        else {
+
             List<Movie> bestRated = (List<Movie>) session.getAttribute("cachedBestRated");
             if (bestRated == null) {
-                // If somehow the cached list is null, fall back to refreshing the list
+
                 bestRated = movieService.getBestRated(12);
                 model.addAttribute("randomBestRated", bestRated);
             } else {
@@ -50,11 +51,10 @@ public class HomeController {
             }
         }
 
-        // Store the user information and quiz status
+
         model.addAttribute("username", user.getFirstName());
         model.addAttribute("quizCompleted", user.isQuizCompleted());
 
-        // Store the current movie list in the session for future use
         session.setAttribute("cachedBestRated", model.getAttribute("randomBestRated"));
 
         return "index";

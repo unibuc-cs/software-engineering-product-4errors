@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @Controller
 public class UserQuizController {
@@ -37,10 +38,15 @@ public class UserQuizController {
         AppUser currentUser = getCurrentUser();
         currentUser.setQuizCompleted(true);
         userRepository.save(currentUser);
-        userQuizService.saveUserRatingsAsync(currentUser, userRatingRequest.getMovies(), userRatingRequest.getRatings());
+
+        CompletableFuture.runAsync(() -> {
+            List<Movie> movies = userRatingRequest.getMovies(); // Fetch movies
+            userQuizService.saveUserRatingsAsync(currentUser, movies, userRatingRequest.getRatings());
+        });
 
         return "exit-quiz";
     }
+
 
     private AppUser getCurrentUser() {
         String loggedUser = SecurityContextHolder.getContext().getAuthentication().getName();

@@ -15,18 +15,19 @@ public class RecommendationService {
     @Autowired
     private MovieRepository movieRepository;
 
-    // Get 5 random recommendations
     public List<Movie> getRandomRecommendations() {
-        List<Movie> allMovies = movieRepository.findAll();  // Fetch all movies from the database
+
+        //placeholder function for the recommendation algorithm
+        List<Movie> allMovies = movieRepository.findAll();
         List<Movie> randomMovies = new ArrayList<>();
 
         if (!allMovies.isEmpty()) {
-            Collections.shuffle(allMovies);  // Shuffle the list randomly
-            for (int i = 0; i < 5 && i < allMovies.size(); i++) {
-                randomMovies.add(allMovies.get(i));  // Add the first 5 movies from the shuffled list
+            Collections.shuffle(allMovies);
+            for (int i = 0; i < 6 && i < allMovies.size(); i++) {
+                randomMovies.add(allMovies.get(i));
             }
         }
 
-        return randomMovies;  // Return the random movie list
+        return randomMovies;
     }
 }
