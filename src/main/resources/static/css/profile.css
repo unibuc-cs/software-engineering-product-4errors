@@ -1,0 +1,166 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #242139, #40324A);
+    color: #F8D3B5;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background-color: #40324A;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+body {
+    padding-top: 70px;
+}
+
+.profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+}
+
+.profile-box {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    padding: 20px 40px;
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+}
+
+.profile-avatar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profile-avatar img {
+    border-radius: 50%;
+    border: 4px solid #F8D3B5;
+    margin-bottom: 10px;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+
+#change-avatar-btn {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background: #B05C61;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+#save-avatar-btn {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    background: #B05C61;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+#save-avatar-btn:hover {
+    background: #40324A;
+}
+
+#change-avatar-btn:hover, #save-avatar-btn:hover {
+    background: #40324A;
+}
+
+#avatar-carousel {
+    display: none;
+    text-align: center;
+}
+
+.carousel {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.avatar-option {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.avatar-option:hover {
+    border-color: #B05C61;
+}
+
+.profile-details h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #DDB4A0;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.detail {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.label {
+    font-weight: bold;
+    color: #DDB4A0;
+}
+
+.value {
+    color: #F8D3B5;
+    font-style: italic;
+}
+
+@media (max-width: 767px) {
+    .profile-avatar img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .carousel {
+        flex-direction: column;
+    }
+
+    .profile-container {
+        padding: 10px;
+    }
+
+    .profile-box {
+        padding: 20px;
+    }
+
+    #change-avatar-btn, #save-avatar-btn {
+        width: 100%;
+        padding: 12px;
+    }
+}
