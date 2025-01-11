@@ -1,0 +1,449 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;700&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #000000;
+    margin-top: 100px; /* Spațiu pentru a compensa navbar-ul fix */
+}
+
+html,
+body {
+    height: 100%;
+}
+
+.loader-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.98); /* Opacitate semi-transparentă */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Asigură-te că este deasupra altor elemente */
+    visibility: visible; /* Loader-ul este vizibil inițial */
+    opacity: 1;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+
+.loader-overlay.hidden {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #ccc;
+    border-top-color: #390007; /* Culoarea spinner-ului */
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+header {
+    height: 60px; /* Înălțimea navbar-ului */
+    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    color: #fff;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    z-index: 10;
+}
+
+/* Navigație Generală */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 40px;
+    color: white;
+}
+
+.navbar {
+    position: fixed; /* Navbar-ul este fixat în partea de sus */
+    top: 0;
+    width: 100%;
+    z-index: 100; /* Se afișează deasupra altor elemente */
+    background-color: rgba(0, 0, 0, 0); /* Transparent inițial */
+    transition: background-color 0.5s ease; /* Tranziție lină pentru schimbarea culorii */
+}
+
+.navbar.scrolled {
+    background-color: rgba(0, 0, 0, 1); /* Devine negru cu opacitate la scroll */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    transition: background-color 1.1s ease, box-shadow 0.5s ease;
+}
+
+.logo {
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+a.logo {
+    text-decoration: none;
+    outline: none;
+    color: white;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-links li {
+    margin-right: 24px;
+    align-content: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 1rem;
+    display: inline-block; /* Schimbă display-ul pentru a permite aplicarea corectă a transformării */
+    transition: transform 0.3s ease; /* Adaugă tranziția pe toate link-urile */
+}
+
+
+
+.avatar-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* face imaginea rotundă */
+    object-fit: cover; /* ajustează imaginea să se potrivească în cerc */
+    border: 2px solid #fff; /* margine albă pentru contrast */
+}
+
+.profile-text {
+    display: none; /* Ascunde textul implicit */
+    color: white;
+    font-size: 1rem;
+}
+
+.nav-links.show .profile-text {
+    display: inline-block; /* Afișează textul când meniul este activ */
+}
+
+.nav-links.show .avatar-image {
+    display: none; /* Ascunde imaginea avatarului când meniul este activ */
+}
+
+
+.nav-links a:hover {
+    transform: scale(1.2);
+    transition: transform 0.3s ease;
+}
+
+
+.outline-button:hover{
+    transform: scale(1.2);
+    transition: transform 0.3s ease;
+}
+
+button {
+    background: none;
+    border: none;
+    color: inherit;
+    font-size: inherit;
+    cursor: pointer;
+}
+
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.menu-icon {
+    display: block; /* Fiecare linie va fi un element bloc */
+    width: 24px; /* Lățimea fiecărei linii */
+    height: 3px; /* Înălțimea fiecărei linii */
+    background-color: white; /* Culoarea liniilor */
+    margin: 5px 0; /* Spațiu între linii */
+    transition: 0.3s;
+}
+
+/* Dacă meniul este deschis, schimbă aspectul liniilor */
+.menu-toggle.open .menu-icon:nth-child(1) {
+    transform: rotate(45deg); /* Prima linie devine partea de sus a "X"-ului */
+    transform-origin: top left;
+}
+
+.menu-toggle.open .menu-icon:nth-child(2) {
+    opacity: 0; /* A doua linie dispare */
+}
+
+.menu-toggle.open .menu-icon:nth-child(3) {
+    transform: rotate(-45deg); /* A treia linie devine partea de jos a "X"-ului */
+    transform-origin: bottom left;
+}
+
+#search-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin: 2rem auto;
+}
+
+/* Stil pentru formular */
+#search-form {
+    display: flex;
+    align-items: center;
+    border: 2px solid #ccc;
+    border-radius: 25px; /* Colțuri rotunjite */
+    overflow: hidden; /* Ascunde marginile iconiței dacă ies */
+    width: 100%;
+    max-width: 700px;
+    background-color: #f9f9f9;
+}
+
+/* Stil pentru câmpul de input */
+#search-bar {
+    flex: 1;
+    border: none;
+    padding: 10px 15px;
+    outline: none;
+    font-size: 16px;
+    border-radius: 25px 0 0 25px; /* Colțuri rotunjite pe partea stângă */
+    background-color: #f9f9f9;
+}
+
+/* Stil pentru buton */
+#search-form button {
+    border: none;
+    color: #390007;
+    cursor: pointer;
+    display: flex;
+    padding: 10px 15px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0 25px 25px 0; /* Colțuri rotunjite pe partea dreaptă */
+    transition: background-color 0.3s;
+}
+
+/* Stil pentru iconiță */
+#search-form button i {
+    font-size: 20px;
+}
+
+/* Hover efect pe buton */
+#search-form button:hover {
+    color: #0e1b05;
+}
+
+/* Responsivitate */
+@media (max-width: 600px) {
+    #search-bar {
+        font-size: 14px;
+        padding: 8px 10px;
+    }
+
+    #search-form button {
+        padding: 8px 10px;
+    }
+}
+
+
+#tags {
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 10px auto;
+}
+
+.tag {
+    color: white;
+    padding: 10px 20px;
+    background-color: #390007;
+    border-radius: 50px;
+    margin: 5px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.tag:hover{
+    background-color:#182D09FF;
+}
+
+.tag.highlight {
+    background-color: #182D09FF;
+}
+.no-results {
+    color: white;
+    font-size: 2rem;
+    text-align: center;
+    margin: 2rem auto;
+
+}
+
+#clear{
+    background-color: #182d09;
+}
+#clear:hover{
+    background-color: #390007;
+}
+
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+}
+.movie-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    background-color: #000;
+}
+.movie-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+.movie-card:hover img {
+    transform: scale(1.1);
+    filter: blur(2px);
+}
+.movie-card .movie-info {
+    position: absolute;
+    font-size: 0.9rem;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.movie-card .movie-info h3{
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+.movie-card:hover .movie-info {
+    opacity: 1;
+}
+#load-more-container {
+    text-align: center;
+    margin-top: 20px;
+}
+#load-more-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #182d09;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+#load-more-button:hover {
+    background-color: #0e1b05;
+}
+/* Responsivitate */
+@media (max-width: 768px) {
+
+    body {
+        margin: 10px;
+        font-size: 14px;
+        margin-top: 60px;
+    }
+
+    header {
+        padding: 10px;
+    }
+
+    .logo {
+        font-size: 1.2rem;
+    }
+
+    #load-more-button {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    .navbar{
+        padding: 20px 15px;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        margin-right: 1rem;
+        right: 0;
+        background-color: rgba(
+                0,
+                0,
+                0,
+                1
+        ); /* Fundal semi-transparent pentru a nu se suprapune cu conținutul */
+        padding: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: 20; /* Meniul va fi deasupra conținutului */
+        opacity: 0; /* Inițial ascuns */
+        transform: translateY(-20px); /* Poziționare de pornire */
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .nav-links.show {
+        display: flex;
+        opacity: 1;
+        transform: translateY(0); /* Efect de deschidere din sus */
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    #search-bar {
+        width: 90%; /* Ajustează lățimea pentru dispozitive mai mici */
+    }
+}
+
+@media (max-width: 1024px) {
+    .grid-container {
+        grid-template-columns: repeat(3, 1fr); /* 3 coloane pe tablete */
+    }
+
+    .movie-card .movie-info {
+        font-size: 0.5rem;
+    }
+
+    .movie-card .movie-info p{
+        margin: 0;
+    }
+
+    .movie-card:hover .movie-info h3{
+        font-size: 0.8rem;
+    }
+}
+
+

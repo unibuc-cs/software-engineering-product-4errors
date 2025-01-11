@@ -10,54 +10,53 @@
     <meta name="csrf-token" content="${_csrf.token}">
 </head>
 <body>
+<header>
+    <nav class="navbar">
+        <!-- Logo -->
+        <a class="logo" href="/">MovieMingle</a>
 
-<nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/">MovieMingle</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+        <!-- Meniu de tip hamburger -->
+        <button class="menu-toggle">
+            <span class="menu-icon"></span>
+            <span class="menu-icon"></span>
+            <span class="menu-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link text-dark" href="/">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-dark" href="/recommendations">Recommendations</a>
-                </li>
-            </ul>
 
-            <form class="d-flex me-auto" method="get" action="/search">
-                <input class="form-control me-2" type="search" name="query" placeholder="Search movies" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+        <!-- Linkuri - se aplică securitatea individual pe fiecare element -->
+        <ul class="nav-links">
+            <!-- Link public -->
+            <li><a href="/homepage">Home</a></li>
+            <li><a href="/search">Search</a></li>
 
-            <ul class="navbar-nav me-3" sec:authorize="isAuthenticated()">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown">User</a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/profile">Profile</a></li>
-                        <li><a class="dropdown-item" href="/">Home</a></li>
-                    </ul>
-                </li>
-            </ul>
+            <!-- Linkuri pentru utilizatori autentificați -->
+            <li sec:authorize="isAuthenticated()"><a href="/recommendations">Recommended</a></li>
+            <!--<li sec:authorize="isAuthenticated()">
+                <a href="/profile" class="profile-link">
+                    <img th:src="'/images/' + ${user.avatar}" alt="Profile" class="avatar-image" />
+                    <span class="profile-text">Profile</span>
+                </a>
+            </li>-->
 
-            <ul class="navbar-nav" sec:authorize="!isAuthenticated()">
-                <li class="nav-item">
-                    <a class="btn btn-outline-primary me-2" href="/register">Register</a>
-                </li>
-                <li class="nav-item">
-                    <a class="btn btn-primary" aria-current="page" href="/login">Login</a>
-                </li>
-            </ul>
 
-            <form sec:authorize="isAuthenticated()" method="post" action="/logout">
-                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-                <button type="submit" class="btn btn-danger">Logout</button>
-            </form>
-        </div>
-    </div>
-</nav>
+            <!-- Buton de logout pentru utilizatori autentificați -->
+            <li sec:authorize="isAuthenticated()">
+                <form sec:authorize="isAuthenticated()" method="post" action="/logout">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                    <button type="submit" class="outline-button">Log Out</button>
+                </form>
+            </li>
+
+            <!-- Butoane pentru utilizatori neautentificați -->
+            <li sec:authorize="!isAuthenticated()">
+                <a href="/register" class="outline-button">Register</a>
+            </li>
+            <li sec:authorize="!isAuthenticated()">
+                <a href="/login" class="outline-button">Log In</a>
+            </li>
+
+        </ul>
+    </nav>
+</header>
 
 <div class="profile-container">
     <div class="profile-box">

@@ -1,39 +1,64 @@
 package com._errors.MovieMingle.controller;
 
-import com._errors.MovieMingle.model.Movie;
-import com._errors.MovieMingle.service.MovieService;
+import com._errors.MovieMingle.dto.ActorDto;
+import com._errors.MovieMingle.dto.MovieApiResponse;
+import com._errors.MovieMingle.dto.MovieDto;
+import com._errors.MovieMingle.service.MovieApiClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
+import java.util.Arrays;
 import java.util.List;
 
-@Controller
+@RestController
+@RequestMapping("/api/movies")
 public class MovieController {
 
     @Autowired
-    private MovieService movieService;
+    private MovieApiClient movieApiClient;
+
+    // Obține detaliile unui film
+    @GetMapping("/{id}")
+    public MovieDto getMovieDetails(@PathVariable Long id) {
+        return movieApiClient.getMovie(id); // Întoarcem datele filmului
+    }
+
+    // Obține filmele populare
+    @GetMapping("/popular")
+    public List<MovieDto> getPopularMovies() {
+        return movieApiClient.getPopularMovies();
+    }
+
+    @GetMapping("/top-rated")
+    public List<MovieDto> getTopRatedMovies() {
+        return movieApiClient.getTopRatedMovies();
+    }
+
+    @GetMapping("/{id}/recommendations")
+    public List<MovieDto> getRecommendationrMovies(@PathVariable Long id) {
+        return movieApiClient.getRecommendationrMovies(id);
+    }
+
+    @GetMapping("{id}/movie-cast")
+    public List<ActorDto> getMovieCast(@PathVariable Long id) {
+        return movieApiClient.getMovieCast(id);
+    }
+
+    @GetMapping("/page")
+    public List<MovieDto> getMoviesByPage(@RequestParam int page) {
+        return movieApiClient.getMoviesByPage(page);
+    }
 
     @GetMapping("/search")
-    public String searchMovies(
-            @RequestParam(name = "query", required = false) String query,
-            Model model) {
-
-
-        List<Movie> movies;
-
-        if (query != null && !query.trim().isEmpty()) {
-
-            movies = movieService.searchMovies(query);
-        } else {
-            movies = movieService.getAllMovies();
-        }
-
-        model.addAttribute("movies", movies != null ? movies : List.of());
-        model.addAttribute("query", query);
-
-        return "search";
+    public List<MovieDto> getMoviesBySearch(@RequestParam String query, @RequestParam int page) {
+        return movieApiClient.getMoviesBySearch(query,page);
     }
+
+    @GetMapping("/genres")
+    public List<MovieDto> getMoviesByGenre(@RequestParam String genres, @RequestParam int page) {
+        return movieApiClient.getMoviesByGenre(genres,page);
+    }
+
 }

@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="http://localhost:35729/livereload.js"></script>
+    <title>MovieMingle - Movie Details</title>
+    <link rel="stylesheet" th:href="@{/css/homepage.css}"/>
+    <script th:src="@{/js/movie-details.js}" defer></script>
+</head>
+<body>
+<header>
+    <nav class="navbar">
+        <!-- Logo -->
+        <a class="logo" href="/">MovieMingle</a>
+
+        <!-- Meniu de tip hamburger -->
+        <button class="menu-toggle">
+            <span class="menu-icon"></span>
+            <span class="menu-icon"></span>
+            <span class="menu-icon"></span>
+        </button>
+
+        <!-- Linkuri - se aplică securitatea individual pe fiecare element -->
+        <ul class="nav-links">
+            <!-- Link public -->
+            <li><a href="/homepage">Home</a></li>
+            <li><a href="/search">Search</a></li>
+
+            <!-- Linkuri pentru utilizatori autentificați -->
+            <li sec:authorize="isAuthenticated()"><a href="/recommendations">Recommended</a></li>
+            <li sec:authorize="isAuthenticated()">
+                <a href="/profile" class="profile-link">
+                    <img th:src="'/images/' + ${user.avatar}" alt="Profile" class="avatar-image" />
+                    <span class="profile-text">Profile</span>
+                </a>
+            </li>
+
+            <!-- Buton de logout pentru utilizatori autentificați
+            <li sec:authorize="isAuthenticated()">
+                <form sec:authorize="isAuthenticated()" method="post" action="/logout">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                    <button type="submit" class="outline-button">Log Out</button>
+                </form>
+            </li>-->
+
+            <!-- Butoane pentru utilizatori neautentificați -->
+            <li sec:authorize="!isAuthenticated()">
+                <a href="/register" class="outline-button">Register</a>
+            </li>
+            <li sec:authorize="!isAuthenticated()">
+                <a href="/login" class="outline-button">Log In</a>
+            </li>
+
+        </ul>
+    </nav>
+</header>
+
+<div id="loader" class="loader-overlay">
+    <div class="spinner"></div>
+</div>
+
+
+<div id="landing-page" class="landing-page" th:style="'background-image: url(https://image.tmdb.org/t/p/original' + ${movie.backdropPath} + ')'">
+    <img th:src="'https://image.tmdb.org/t/p/original' + ${movie.backdropPath}" alt="Backdrop" style="display:none;">
+    <div class="overlay"></div>
+    <div class="black-fog"></div>
+
+    <!-- Poster Image -->
+    <div class="movie-poster">
+        <img th:src="'https://image.tmdb.org/t/p/original' + ${movie.posterPath}" alt="Poster" />
+    </div>
+
+    <div class="movie-info-container">
+        <!-- Titlu -->
+        <h1 id="movie-title" th:text="${movie.title}">Loading...</h1>
+
+        <!-- Anul, durata și regizorul -->
+        <div id="movie-info-extra">
+            <span id="movie-year" th:text="${movie.releaseDate?.split('-')[0]}">Unknown Year</span> |
+            <span id="movie-duration" th:text="${movie.runtime != null ? movie.runtime + ' min' : 'Unknown Duration'}">Unknown Duration</span> |
+            <span id="movie-director" th:text="'Directed by: ' + ${movie.directorsNames}"></span>
+        </div>
+
+        <!-- Rating și genuri -->
+        <div id="rating-and-genres">
+            <div id="movie-rating-container">
+                <div id="rating-circle-container">
+                    <svg id="rating-circle" width="80" height="80" viewBox="0 0 150 150" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="75" cy="75" r="70" stroke="#0a0a0a" stroke-width="10" fill="transparent" />
+                        <circle
+                                id="rating-progress"
+                                cx="75"
+                                cy="75"
+                                r="70"
+                                stroke="#4caf50"
+                                stroke-width="10"
+                                fill="transparent"
+                                th:attr="stroke-dasharray=440, stroke-dashoffset=${440 - (440 * movie.rating / 10)}, stroke=${movie.rating >= 7.5 ? '#182D09' : movie.rating >= 5 ? '#e09f3e' : '#390007'}"
+                        />
+                    </svg>
+                    <span id="rating-text" th:text="${#strings.replace(#numbers.formatDecimal(movie.rating, 1, 2), ',', '.')}">0.0</span>
+                </div>
+            </div>
+
+            <div id="movie-genres">
+                <div class="genre" th:each="genre : ${movie.genres}" th:text="${genre.name}">Action</div>
+            </div>
+        </div>
+
+        <!-- Descriere -->
+        <p id="movie-description" th:text="${movie.description}">Loading...</p>
+
+        <!-- Butoane -->
+        <div class="movie-buttons">
+            <button id="favorite-button" class="favorite-button" onclick="toggleFavorite()">
+                <i class="fa fa-heart" id="favorite-icon"></i>
+                <span id="favorite-text">Add to Favorite</span>
+            </button>
+            <button id="watchlist-button" class="watchlist-button" onclick="toggleWatchList()">
+                <span id="watchlist-text">Add to Watch List</span>
+            </button>
+            <button id="watched-button" class="watched-button" onclick="toggleWatched()">
+                <span id="watched-text">Mark as Watched</span>
+            </button>
+        </div>
+
+
+        <span class="rate-text"><p>How would you rate this movie?</p></span>
+        <!-- Stelutele de rating -->
+        <div class="movie-rating-stars">
+            <span class="star" data-index="1"><i class="fa fa-star"></i></span>
+            <span class="star" data-index="2"><i class="fa fa-star"></i></span>
+            <span class="star" data-index="3"><i class="fa fa-star"></i></span>
+            <span class="star" data-index="4"><i class="fa fa-star"></i></span>
+            <span class="star" data-index="5"><i class="fa fa-star"></i></span>
+            <span class="star" data-index="6"><i class="fa fa-star"></i></span>
+            <span class="star" data-index="7"><i class="fa fa-star"></i></span>
+            <span class="star" data-index="8"><i class="fa fa-star"></i></span>
+            <span class="star" data-index="9"><i class="fa fa-star"></i></span>
+            <span class="star" data-index="10"><i class="fa fa-star"></i></span>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+<!-- Caruselul pentru cast-ul filmului -->
+<div id="cast-carousel" class="carousel-container">
+    <h2 class="carousel-title">MOVIE CAST</h2>
+</div>
+
+<!-- Trailerul filmului -->
+<div id="movie-trailer" class="trailer-container">
+    <h2 class="trailer-title">Watch Trailer</h2>
+    <div class="trailer-video">
+        <iframe
+                id="trailer-iframe"
+                th:if="${movie.trailerPath != null}"
+                th:src="'https://www.youtube.com/embed/' + ${movie.trailerPath}"
+                title="Movie Trailer"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+        </iframe>
+        <p class="no-trailer-message" th:if="${movie.trailerPath == null}">
+            No trailer available for this movie.
+        </p>
+    </div>
+</div>
+
+
+
+
+<!-- Caruselul pentru filme similare -->
+<div id="recommendations-carousel" class="carousel-container">
+    <h2 class="carousel-title">You may also like</h2>
+</div>
+
+
+</body>
+</html>

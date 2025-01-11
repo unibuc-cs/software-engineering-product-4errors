@@ -13,5 +13,6 @@ public interface AppUserService {
     void sendRegistrationConfirmationEmail(final AppUser user);
     boolean verifyUser(final String token) throws InvalidTokenException;
     AppUser getUserById(final String id) throws UnknownIdentifierException;
+    AppUser findByEmail(String email);
     //MfaTokenData mfaSetup(final String email) throws UnknownIdentifierException, QrGenerationException;
 }

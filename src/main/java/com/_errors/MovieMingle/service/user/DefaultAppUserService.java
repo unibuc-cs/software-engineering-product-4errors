@@ -58,6 +58,7 @@ public class DefaultAppUserService implements AppUserService {
         userEntity.setRole("user");
         userEntity.setCreatedAt(new Date());
         encodePassword(user, userEntity);
+        userEntity.setAvatar("general_avatar.png");
         //userEntity.setSecret(mfaTokenManager.generateSecretKey());
         userRepository.save(userEntity);
         sendRegistrationConfirmationEmail(userEntity);
@@ -112,6 +113,11 @@ public class DefaultAppUserService implements AppUserService {
             throw new UnknownIdentifierException("unable to find account or account is not active");
         }
         return user;
+    }
+
+    @Override
+    public AppUser findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
 //    @Override

@@ -1,33 +1,36 @@
 package com._errors.MovieMingle.controller;
-
+import com._errors.MovieMingle.dto.MovieDto;
 import com._errors.MovieMingle.model.AppUser;
-import com._errors.MovieMingle.model.Movie;
-import com._errors.MovieMingle.repository.AppUserRepository;
-import com._errors.MovieMingle.service.RecommendationService;
+import com._errors.MovieMingle.service.MovieApiClient;
 import com._errors.MovieMingle.service.user.AppUserService;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
-import java.util.List;
 
 @Controller
-public class RecommendationController {
+@RequestMapping("/movie-details")
+public class MovieDetailsController {
 
     @Autowired
-    private RecommendationService recommendationService;
-    @Autowired
-    private AppUserRepository userRepository;
+    private MovieApiClient movieApiClient;
 
     @Autowired
     private AppUserService userService;
 
-    @GetMapping("/recommendations")
-    public String showRecommendations(Model model, Principal principal) {
+    @GetMapping("/{id}")
+    public String getMovieDetailsPage(@PathVariable Long id, Principal principal, Model model) {
+        // Obține detaliile filmului
+        MovieDto movie = movieApiClient.getMovie(id);
+        System.out.println(movie);
+
+        // Adaugă detaliile filmului în model pentru a fi accesibile în pagină
+        model.addAttribute("movie", movie);
+
         AppUser user;
 
         if (principal == null) {
@@ -45,7 +48,7 @@ public class RecommendationController {
         // Adaugă utilizatorul la model
         model.addAttribute("user", user);
 
-        return "recommendations";
+        return "movie-details"; // Va căuta `movie-details.html` în /templates
     }
-}
 
+}

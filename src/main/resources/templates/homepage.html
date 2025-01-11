@@ -10,6 +10,7 @@
     <script src="http://localhost:35729/livereload.js"></script>
     <title>MovieMingle</title>
     <link rel="stylesheet" th:href="@{/css/homepage.css}"/>
+    <script th:src="@{/js/homepage.js}" defer></script>
 </head>
 <body>
 <header>
@@ -59,15 +60,81 @@
     </nav>
 </header>
 
-<h2 style=" margin-top: 15rem; text-align:center; color: #ffffff">There are no movie recommendations available yet!</h2>
-
-<!--
-
 <div id="loader" class="loader-overlay">
     <div class="spinner"></div>
 </div>
--->
 
 
+<div id="landing-page" class="landing-page">
+    <div class="overlay"></div>
+
+    <!-- Efectul de ceată negru în formă de "L" -->
+    <div class="black-fog"></div>
+
+    <div class="movie-info-container">
+        <h1 id="movie-title">Loading...</h1>
+        <div id="movie-info-extra">
+            <span id="movie-year"></span> | <span id="movie-duration"></span> |
+            <span id="movie-director"></span>
+        </div>
+
+
+        <!-- Container pentru rating și genuri pe aceeași linie -->
+        <div id="rating-and-genres">
+            <div id="movie-rating-container">
+                <div id="rating-circle-container">
+                    <svg
+                            id="rating-circle"
+                            width="80"
+                            height="80"
+                            viewBox="0 0 150 150"
+                            xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <circle
+                                cx="75"
+                                cy="75"
+                                r="70"
+                                stroke="#0a0a0a"
+                                stroke-width="10"
+                                fill="transparent"
+                        />
+                        <circle
+                                id="rating-progress"
+                                cx="75"
+                                cy="75"
+                                r="70"
+                                stroke="#4caf50"
+                                stroke-width="10"
+                                fill="transparent"
+                                stroke-dasharray="440"
+                                stroke-dashoffset="440"
+                        />
+                    </svg>
+                    <span id="rating-text"></span>
+                </div>
+            </div>
+
+            <!-- Containerul pentru genuri -->
+            <div id="movie-genres"></div>
+        </div>
+
+        <p id="movie-description">Loading...</p>
+        <!-- Butonul See More -->
+        <button id="see-more" class="see-more-button" data-id="">
+            <i class="fa fa-play-circle"></i> See More
+        </button>
+
+    </div>
+</div>
+
+<!-- Caruselul pentru cele mai populare filme va fi generat aici dinamic -->
+<div id="popular-carousel" class="carousel-container">
+    <h2 class="carousel-title">Most Popular Today</h2>
+</div>
+
+<!-- Caruselul de top-rated movies -->
+<div id="top-rated-carousel" class="carousel-container">
+    <h2 class="carousel-title">Top Rated Movies</h2>
+</div>
 </body>
 </html>

@@ -17,6 +17,7 @@ public class AppUser {
     private String email;
     private String password;
     private String role;
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
     private boolean accountVerified;
     private boolean quizCompleted=false;

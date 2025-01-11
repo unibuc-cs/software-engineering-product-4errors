@@ -1,64 +1,45 @@
 package com._errors.MovieMingle.controller;
 import com._errors.MovieMingle.model.AppUser;
-import com._errors.MovieMingle.model.Movie;
-import com._errors.MovieMingle.repository.AppUserRepository;
-import com._errors.MovieMingle.repository.MovieRepository;
-import com._errors.MovieMingle.service.MovieService;
+import com._errors.MovieMingle.service.user.AppUserService;
 import jakarta.servlet.http.HttpSession;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.ui.Model;
-import com._errors.MovieMingle.dto.RegisterDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.List;
+import java.security.Principal;
 
 
 @Controller
 public class HomeController {
 
     @Autowired
-    private AppUserRepository userRepository;
+    private AppUserService userService;
 
-    @Autowired
-    private MovieService movieService;
+    @GetMapping({"", "/", "/homepage"})
+    public String homepage(Model model, Principal principal) {
+        AppUser user;
 
-    @GetMapping({"", "/"})
-    public String home(Model model, HttpSession session) {
-        String loggedUser = SecurityContextHolder.getContext().getAuthentication().getName();
-        AppUser user = userRepository.findByEmail(loggedUser);
-
-        Boolean isNewLogin = (Boolean) session.getAttribute("isNewLogin");
-
-
-        //refresh the list only if it is a new login
-        if (isNewLogin == null || isNewLogin) {
-            List<Movie> bestRated = movieService.getBestRated(12);
-            model.addAttribute("randomBestRated", bestRated);
-            session.setAttribute("isNewLogin", false);
-        }
-        else {
-
-            List<Movie> bestRated = (List<Movie>) session.getAttribute("cachedBestRated");
-            if (bestRated == null) {
-
-                bestRated = movieService.getBestRated(12);
-                model.addAttribute("randomBestRated", bestRated);
-            } else {
-                model.addAttribute("randomBestRated", bestRated);
+        if (principal == null) {
+            // Crează un utilizator anonim cu avatarul implicit
+            user = new AppUser();
+            user.setAvatar("general_avatar.png");  // Folosește path-ul relativ
+        } else {
+            // Găsește utilizatorul pe baza email-ului
+            user = userService.findByEmail(principal.getName());
+            if (user.getAvatar() == null) {
+                user.setAvatar("general_avatar.png");
             }
         }
 
+        // Adaugă utilizatorul la model
+        model.addAttribute("user", user);
 
-        model.addAttribute("username", user.getFirstName());
-        model.addAttribute("quizCompleted", user.isQuizCompleted());
-
-        session.setAttribute("cachedBestRated", model.getAttribute("randomBestRated"));
-
-        return "index";
+        return "homepage";
     }
+
+
 
 
     @GetMapping("/quiz-page")
