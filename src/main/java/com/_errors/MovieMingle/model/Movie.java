@@ -1,15 +1,20 @@
 package com._errors.MovieMingle.model;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "movieTest")
+@Table(name = "movie")
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "movie_id")
     private Long movieId;
+
+    @Column(name = "TMDB_id")
+    private Long tmdbId;
 
     @Column(name = "poster_link", nullable = false)
     private String posterLink;
@@ -17,7 +22,7 @@ public class Movie {
     @Column(name = "series_title", nullable = false)
     private String seriesTitle;
 
-    @Column(name = "released_year", nullable = false)
+    @Column(name = "released_year")
     private int releasedYear;
 
     @Column(name = "certificate")
@@ -31,7 +36,7 @@ public class Movie {
     @Column(name = "genre")
     private List<String> genre;
 
-    @Column(name = "imdb_rating", nullable = false)
+    @Column(name = "imdb_rating")
     private double imdbRating;
 
     @Column(name = "overview", nullable = false, columnDefinition = "TEXT")
@@ -43,32 +48,24 @@ public class Movie {
     @Column(name = "director", nullable = false)
     private String director;
 
-    @Column(name = "star1", nullable = false)
-    private String star1;
 
-    @Column(name = "star2", nullable = false)
-    private String star2;
-
-    @Column(name = "star3", nullable = false)
-    private String star3;
-
-    @Column(name = "star4", nullable = false)
-    private String star4;
-
-    @Column(name = "no_of_votes", nullable = false)
+    @Column(name = "no_of_votes")
     private int noOfVotes;
 
     @Column(name = "gross")
     private Long gross;
 
+
+
     // Default constructor
     public Movie() {}
 
     // Updated constructor
-    public Movie(Long movieId, String posterLink, String seriesTitle, int releasedYear, String certificate,
+    public Movie(Long movieId, Long tmdbId,String posterLink, String seriesTitle, int releasedYear, String certificate,
                  String runtime, List<String> genre, double imdbRating, String overview, Integer metaScore,
-                 String director, String star1, String star2, String star3, String star4, int noOfVotes, Long gross) {
+                 String director, int noOfVotes, Long gross) {
         this.movieId = movieId;
+        this.tmdbId=tmdbId;
         this.posterLink = posterLink;
         this.seriesTitle = seriesTitle;
         this.releasedYear = releasedYear;
@@ -79,10 +76,6 @@ public class Movie {
         this.overview = overview;
         this.metaScore = metaScore;
         this.director = director;
-        this.star1 = star1;
-        this.star2 = star2;
-        this.star3 = star3;
-        this.star4 = star4;
         this.noOfVotes = noOfVotes;
         this.gross = gross;
     }
@@ -96,6 +89,13 @@ public class Movie {
         this.movieId = movieId;
     }
 
+    public Long getTMDBId() {
+        return tmdbId;
+    }
+
+    public void setTMDBId(Long TMBDId) {
+        this.tmdbId = TMBDId;
+    }
     public String getPosterLink() {
         return posterLink;
     }
@@ -176,37 +176,6 @@ public class Movie {
         this.director = director;
     }
 
-    public String getStar1() {
-        return star1;
-    }
-
-    public void setStar1(String star1) {
-        this.star1 = star1;
-    }
-
-    public String getStar2() {
-        return star2;
-    }
-
-    public void setStar2(String star2) {
-        this.star2 = star2;
-    }
-
-    public String getStar3() {
-        return star3;
-    }
-
-    public void setStar3(String star3) {
-        this.star3 = star3;
-    }
-
-    public String getStar4() {
-        return star4;
-    }
-
-    public void setStar4(String star4) {
-        this.star4 = star4;
-    }
 
     public int getNoOfVotes() {
         return noOfVotes;

@@ -134,10 +134,37 @@ function toggleWatchList() {
     text.textContent = text.textContent === "Add to Watch List" ? "Added to Watch List" : "Add to Watch List";
 }
 
-function toggleWatched() {
+async function toggleWatched() {
     let text = document.getElementById('watched-text');
+    const movieId = window.location.pathname.split('/').pop();
+    const userId = document.getElementById('userId').value;
+
     text.textContent = text.textContent === "Mark as Watched" ? "Mark as Unwatched" : "Mark as Watched";
+
+    const movieTitle = document.title;
+
+    try {
+        const response = await fetch(`${BASE_URL}/watched/add`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                userId: userId,
+                tmdbId: movieId,
+                title: movieTitle
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to update watched status');
+        }
+        console.log("Film added to watched list successfully!");
+    } catch (error) {
+        console.error("Error adding movie to watched list:", error);
+    }
 }
+
 
 
 async function fetchCast(Id) {

@@ -18,4 +18,6 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
     @Query(value = "SELECT * FROM movie_test where imdb_rating> 8.5", nativeQuery = true)
     ArrayList<Movie> findHighRated();
 
+    Movie findByTmdbId(Long tmdbId);
+
 }

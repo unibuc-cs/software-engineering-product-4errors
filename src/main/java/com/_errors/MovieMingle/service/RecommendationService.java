@@ -16,18 +16,6 @@ public class RecommendationService {
     private MovieRepository movieRepository;
 
     public List<Movie> getRandomRecommendations() {
-
-        //placeholder function for the recommendation algorithm
-        List<Movie> allMovies = movieRepository.findAll();
-        List<Movie> randomMovies = new ArrayList<>();
-
-        if (!allMovies.isEmpty()) {
-            Collections.shuffle(allMovies);
-            for (int i = 0; i < 6 && i < allMovies.size(); i++) {
-                randomMovies.add(allMovies.get(i));
-            }
-        }
-
-        return randomMovies;
+        return new ArrayList<>();
     }
 }
