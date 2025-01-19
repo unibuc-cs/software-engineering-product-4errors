@@ -67,5 +67,36 @@ public class UserWatchedMovieService {
 
         return "Movie added to watched list.";
     }
+
+    public boolean isMovieWatched(Long userId, Long tmdbId) {
+        Movie movie = movieRepository.findByTmdbId(tmdbId);
+        if (movie == null) return false;
+        return userWatchedMovieRepository.existsByUserIdAndMovie_MovieId(userId, movie.getMovieId());
+    }
+    public String removeFromWatched(Long userId, Long tmdbId) {
+        // Find the user
+        AppUser user = userRepository.findById(userId);
+        if (user == null) {
+            return "User not found";
+        }
+
+        // Find the movie
+        Movie movie = movieRepository.findByTmdbId(tmdbId);
+        if (movie == null) {
+            return "Movie not found";
+        }
+
+        // Check if the movie is in the watched list
+        UserWatchedMovie watchedMovie = userWatchedMovieRepository.findByUserIdAndMovie_MovieId(userId, movie.getMovieId());
+        if (watchedMovie == null) {
+            return "Movie is not in your watched list.";
+        }
+
+        // Delete the entry
+        userWatchedMovieRepository.delete(watchedMovie);
+        return "Movie removed from watched list.";
+    }
+
+
 }
 

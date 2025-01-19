@@ -25,4 +25,15 @@ public class UserWatchedMovieController {
 
         return userWatchedMovieService.addMovieToWatched(userId, tmdbId, title);
     }
+    @DeleteMapping("/remove")
+    @ResponseBody  // Add this to ensure direct response
+    public String removeMovieFromWatched(
+            @RequestParam("userId") Long userId,
+            @RequestParam("tmdbId") Long tmdbId) {
+        return userWatchedMovieService.removeFromWatched(userId, tmdbId);
+    }
+    @GetMapping("/check")
+    public boolean isMovieWatched(@RequestParam Long userId, @RequestParam Long tmdbId) {
+        return userWatchedMovieService.isMovieWatched(userId, tmdbId);
+    }
 }

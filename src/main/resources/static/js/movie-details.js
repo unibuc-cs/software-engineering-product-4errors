@@ -128,6 +128,26 @@ function toggleFavorite() {
     icon.classList.toggle('fa-regular');
     text.textContent = text.textContent === "Add to Favorite" ? "Added to Favorite" : "Add to Favorite";
 }
+// Add this function to check initial state
+async function checkWatchedStatus() {
+    const movieId = window.location.pathname.split('/').pop();
+    const userId = document.getElementById('userId').value;
+
+    try {
+        const response = await fetch(`${BASE_URL}/watched/check?userId=${userId}&tmdbId=${movieId}`);
+        const isWatched = await response.json();
+
+        let text = document.getElementById('watched-text');
+        text.textContent = isWatched ? "Mark as Unwatched" : "Mark as Watched";
+    } catch (error) {
+        console.error("Error checking watched status:", error);
+    }
+}
+
+// Call this when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+    checkWatchedStatus();
+});
 
 function toggleWatchList() {
     let text = document.getElementById('watchlist-text');
@@ -138,34 +158,44 @@ async function toggleWatched() {
     let text = document.getElementById('watched-text');
     const movieId = window.location.pathname.split('/').pop();
     const userId = document.getElementById('userId').value;
-
-    text.textContent = text.textContent === "Mark as Watched" ? "Mark as Unwatched" : "Mark as Watched";
-
-    const movieTitle = document.title;
+    const isWatched = text.textContent === "Mark as Unwatched"; // Check current state
 
     try {
-        const response = await fetch(`${BASE_URL}/watched/add`, {
-            method: 'POST',
+        let url, method;
+        if (isWatched) {
+            url = `${BASE_URL}/watched/remove?userId=${userId}&tmdbId=${movieId}`;
+            method = 'DELETE';
+        } else {
+            url = `${BASE_URL}/watched/add`;
+            method = 'POST';
+        }
+
+        const response = await fetch(url, {
+            method: method,
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
+            body: method === 'POST' ? JSON.stringify({
                 userId: userId,
                 tmdbId: movieId,
-                title: movieTitle
-            })
+                title: document.title
+            }) : null
         });
 
         if (!response.ok) {
             throw new Error('Failed to update watched status');
         }
-        console.log("Film added to watched list successfully!");
+
+        text.textContent = isWatched ? "Mark as Watched" : "Mark as Unwatched";
+
+        console.log(isWatched ?
+            "Film removed from watched list successfully!" :
+            "Film added to watched list successfully!");
     } catch (error) {
-        console.error("Error adding movie to watched list:", error);
+        text.textContent = isWatched ? "Mark as Unwatched" : "Mark as Watched";
+        console.error("Error updating movie watched status:", error);
     }
 }
-
-
 
 async function fetchCast(Id) {
     try {
