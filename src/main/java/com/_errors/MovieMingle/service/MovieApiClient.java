@@ -133,6 +133,32 @@ public class MovieApiClient {
 
 
 
+    //functii pentru popularea tabelului de rating
+    public List<MovieDto> getPopularMoviesPage(int page) {
+        String url = API_BASE_URL + "/movie/popular?api_key=" + apiKey + "&page=" + page;
+        MovieApiResponse response = restTemplate.getForObject(url, MovieApiResponse.class);
+        List<MovieDto> movies = response != null ? response.getResults() : Arrays.asList();
+
+        // Completăm detaliile fiecărui film
+        movies.forEach(this::populateMovieDetails);
+        return movies;
+    }
+    public List<MovieDto> getTopRatedMoviesPage(int page) {
+        String url = API_BASE_URL + "/movie/top_rated?api_key=" + apiKey + "&page=" + page;
+        MovieApiResponse response = restTemplate.getForObject(url, MovieApiResponse.class);
+        List<MovieDto> movies = response != null ? response.getResults() : Arrays.asList();
+        movies.forEach(this::populateMovieDetails);
+        return movies;
+    }
+
+    public List<MovieDto> getTrendingMoviesPage(int page) {
+        String url = API_BASE_URL + "/trending/movie/week?api_key=" + apiKey + "&page=" + page;
+        MovieApiResponse response = restTemplate.getForObject(url, MovieApiResponse.class);
+        List<MovieDto> movies = response != null ? response.getResults() : Arrays.asList();
+        movies.forEach(this::populateMovieDetails);
+        return movies;
+    }
+
     // Metoda pentru obținerea celor mai bine cotate filme
     public List<MovieDto> getTopRatedMovies() {
         String url = API_BASE_URL + "/movie/top_rated?api_key=" + apiKey;
