@@ -10,11 +10,11 @@ public class Rating {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "movie_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "movie_id", nullable = false,foreignKey = @ForeignKey(name = "FK_movie_ref"))
     private Movie movie;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private AppUser user;
 
