@@ -1,7 +1,6 @@
 package com._errors.MovieMingle.repository;
 
 import com._errors.MovieMingle.model.UserFavourite;
-import com._errors.MovieMingle.model.UserWatchedMovie;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

@@ -670,13 +670,15 @@ button {
         transition: background-color 0.3s;
     }
 }
-/* culoarea diferita pentru mark as unwatched*/
-
+/* culoarea diferita pentru mark as unwatched,added to favorites, added to watchlist*/
 .watched-button[data-watched="true"] {
     background-color:  #0e1b05;
 }
 
 .favorite-button[data-favorite="true"]{
+  background-color:  #0e1b05;
+}
+.watchlist-button[data-watchlist="true"]{
   background-color:  #0e1b05;
 }
 

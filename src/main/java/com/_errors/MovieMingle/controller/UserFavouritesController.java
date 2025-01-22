@@ -1,7 +1,5 @@
 package com._errors.MovieMingle.controller;
-
 import com._errors.MovieMingle.service.user.UserFavouritesService;
-import com._errors.MovieMingle.service.user.UserWatchedMovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
