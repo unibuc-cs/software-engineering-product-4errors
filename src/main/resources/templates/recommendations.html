@@ -77,13 +77,6 @@
                              th:src="${'https://image.tmdb.org/t/p/w500' + movie.posterLink}"
                              th:alt="${movie.seriesTitle}"
                              style="width: 100%; height: 300px; object-fit: cover;" />
-                        <div style="padding: 10px;">
-                            <h3 th:text="${movie.seriesTitle}"
-                                ></h3>
-                            <p th:if="${movie.director != null}"
-                               th:text="${'Director: ' + movie.director}"
-                               </p>
-                        </div>
                     </div>
                 </div>
             </div>

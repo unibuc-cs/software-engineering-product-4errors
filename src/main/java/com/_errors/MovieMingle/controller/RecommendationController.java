@@ -4,11 +4,8 @@ import com._errors.MovieMingle.model.AppUser;
 import com._errors.MovieMingle.model.Movie;
 import com._errors.MovieMingle.recommendation.SVDRecommendationService;
 import com._errors.MovieMingle.repository.AppUserRepository;
-import com._errors.MovieMingle.service.RecommendationService;
 import com._errors.MovieMingle.service.user.AppUserService;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,13 +18,11 @@ import java.util.List;
 public class RecommendationController {
 
     @Autowired
-    private RecommendationService recommendationService;
-    @Autowired
     private AppUserRepository userRepository;
     @Autowired
     private AppUserService userService;
     @Autowired
-    private SVDRecommendationService svdRecommendationService; // Adăugăm serviciul SVD
+    private SVDRecommendationService svdRecommendationService;
 
     @GetMapping("/recommendations")
     public String showRecommendations(Model model, Principal principal) {
@@ -36,7 +31,7 @@ public class RecommendationController {
 
         if (principal != null) {
             user = userService.findByEmail(principal.getName());
-            System.out.println("User found: " + user.getId()); // Debug log
+            System.out.println("User found: " + user.getId());
 
             if (user.getAvatar() == null) {
                 user.setAvatar("general_avatar.png");
@@ -47,7 +42,7 @@ public class RecommendationController {
                 recommendations = svdRecommendationService.recommendMovies((long) user.getId(), 10);
 
             } catch (Exception e) {
-                System.out.println("Error getting recommendations: " + e.getMessage()); // Debug log
+                System.out.println("Error getting recommendations: " + e.getMessage());
                 e.printStackTrace();
             }
         } else {

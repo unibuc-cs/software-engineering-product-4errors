@@ -31,7 +31,7 @@
 
             <!-- Linkuri pentru utilizatori autentificați -->
             <li sec:authorize="isAuthenticated()"><a href="/recommendations">Recommended</a></li>
-            <li sec:authorize="isAuthenticated()"><a href="/mylists">My Lists</a></li>
+            <li sec:authorize="isAuthenticated()"><a href="/mylists">My Movies</a></li>
             <li sec:authorize="isAuthenticated()">
                 <a href="/profile" class="profile-link">
                     <img th:src="'/images/' + ${user.avatar}" alt="Profile" class="avatar-image" />
@@ -79,7 +79,7 @@
 
     <!-- To Watch Movies -->
     <div id="towatch-carousel" class="carousel-container">
-        <h2 class="carousel-title">Your Watchlist</h2>
+        <h2 class="carousel-title" style="text-align: left; margin-left: 20px;">Your Watchlist</h2>
         <div class="swiper">
             <div class="swiper-wrapper">
                 <div class="swiper-slide" th:each="movie : ${watchlist}">

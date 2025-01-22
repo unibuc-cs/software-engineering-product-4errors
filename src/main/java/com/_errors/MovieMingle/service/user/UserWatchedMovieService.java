@@ -33,19 +33,19 @@ public class UserWatchedMovieService {
     private MovieApiClient movieApiClient;
 
     public String addMovieToWatched(Long userId, Long tmdbId, String title) {
-        // Găsim utilizatorul
+
         AppUser user = userRepository.findById(userId);
         if (user==null)
             return ("User not found");
 
-        // Găsim sau creăm filmul
+        //gasim sau cream filmul
         Movie movie = movieRepository.findByTmdbId(tmdbId);
 
         //daca nu am salvat inca filmul in db il cream
         if(movie==null)
         {
             MovieDto movieDto=movieApiClient.getMovie(tmdbId);
-            // Salvăm filmul în baza de date
+            //salvam filmul in db
             movie = new Movie();
             movie.setTMDBId(tmdbId);
             movie.setSeriesTitle(movieDto.getTitle());
@@ -57,14 +57,11 @@ public class UserWatchedMovieService {
 
         }
 
-
-        // Verificăm dacă filmul este deja marcat ca "watched"
         boolean alreadyWatched = userWatchedMovieRepository.existsByUserIdAndMovie_MovieId(userId, movie.getMovieId());
         if (alreadyWatched) {
             return "Movie is already marked as watched.";
         }
 
-        // Salvăm în `user_watched_movies`
         UserWatchedMovie watchedEntry = new UserWatchedMovie();
         watchedEntry.setUser(user);
         watchedEntry.setMovie(movie);
@@ -80,25 +77,23 @@ public class UserWatchedMovieService {
         return userWatchedMovieRepository.existsByUserIdAndMovie_MovieId(userId, movie.getMovieId());
     }
     public String removeFromWatched(Long userId, Long tmdbId) {
-        // Find the user
+        //gasim userul
         AppUser user = userRepository.findById(userId);
         if (user == null) {
             return "User not found";
         }
 
-        // Find the movie
+        //gasim filmul
         Movie movie = movieRepository.findByTmdbId(tmdbId);
         if (movie == null) {
             return "Movie not found";
         }
 
-        // Check if the movie is in the watched list
         UserWatchedMovie watchedMovie = userWatchedMovieRepository.findByUserIdAndMovie_MovieId(userId, movie.getMovieId());
         if (watchedMovie == null) {
             return "Movie is not in your watched list.";
         }
 
-        // Delete the entry
         userWatchedMovieRepository.delete(watchedMovie);
         return "Movie removed from watched list.";
     }
