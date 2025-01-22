@@ -227,13 +227,105 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Funcționalitate pentru butoanele din pagina de detalii film
-function toggleFavorite() {
-    let icon = document.getElementById('favorite-icon');
-    let text = document.getElementById('favorite-text');
-    icon.classList.toggle('fa-solid');
-    icon.classList.toggle('fa-regular');
-    text.textContent = text.textContent === "Add to Favorite" ? "Added to Favorite" : "Add to Favorite";
+
+
+// Check if the movie is in the favorites list
+async function checkFavoriteStatus() {
+    const movieId = window.location.pathname.split('/').pop(); // Extract movie ID from URL
+    const userId = document.getElementById('userId').value; // Get user ID from hidden input
+
+    try {
+        // Send a request to check if the movie is in the favorites
+        const response = await fetch(`${BASE_URL}/favourites/check?userId=${userId}&tmdbId=${movieId}`);
+        if (!response.ok) {
+            throw new Error("Failed to check favorite status");
+        }
+
+        const isFavorite = await response.json(); // Expecting a boolean response
+
+        // Update UI elements
+        let text = document.getElementById('favorite-text');
+        let button = text.parentElement;
+        let icon = document.getElementById('favorite-icon');
+
+        if (isFavorite) {
+            button.setAttribute('data-favorite', 'true'); // Mark as favorite
+            text.textContent = "Added to Favorite";
+            icon.classList.add('fa-solid');
+            icon.classList.remove('fa-regular');
+        } else {
+            button.removeAttribute('data-favorite'); // Mark as not favorite
+            text.textContent = "Add to Favorite";
+            icon.classList.add('fa-regular');
+            icon.classList.remove('fa-solid');
+        }
+    } catch (error) {
+        console.error("Error checking favorite status:", error);
+    }
 }
+
+// Call checkFavoriteStatus on page load
+document.addEventListener('DOMContentLoaded', function () {
+    checkFavoriteStatus();
+});
+
+
+//adaugam sau stergem din lista de favorite
+async function toggleFavorite() {
+    let button = document.getElementById('favorite-text').parentElement;
+    let text = document.getElementById('favorite-text');
+    let icon = document.getElementById('favorite-icon');
+    const movieId = window.location.pathname.split('/').pop(); // Extract movie ID from URL
+    const userId = document.getElementById('userId').value; // Get user ID from hidden input or other source
+    const isFavorite = button.hasAttribute('data-favorite'); // Check if the movie is currently in favorites
+
+    try {
+        let url, method;
+        if (isFavorite) {
+            // If already favorite, remove it
+            url = `${BASE_URL}/favourites/remove?userId=${userId}&tmdbId=${movieId}`;
+            method = 'DELETE';
+            button.removeAttribute('data-favorite');
+        } else {
+            // If not favorite, add it
+            url = `${BASE_URL}/favourites/add`;
+            method = 'POST';
+            button.setAttribute('data-favorite', 'true');
+        }
+
+        // API request
+        const response = await fetch(url, {
+            method: method,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: method === 'POST' ? JSON.stringify({
+                userId: userId,
+                tmdbId: movieId,
+                title: document.title // Send movie title if adding
+            }) : null
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to update favorites status');
+        }
+
+        // Update UI based on the result
+        text.textContent = isFavorite ? "Add to Favorite" : "Added to Favorite";
+        icon.classList.toggle('fa-solid', !isFavorite);
+        icon.classList.toggle('fa-regular', isFavorite);
+
+        console.log(isFavorite ?
+            "Movie removed from favorites list successfully!" :
+            "Movie added to favorites list successfully!");
+
+    } catch (error) {
+        // Handle error by reverting text
+        text.textContent = isFavorite ? "Added to Favorite" : "Add to Favorite";
+        console.error("Error updating favorite status:", error);
+    }
+}
+
 //verificam daca filmul este in watched list
 async function checkWatchedStatus() {
     const movieId = window.location.pathname.split('/').pop();
@@ -244,7 +336,14 @@ async function checkWatchedStatus() {
         const isWatched = await response.json();
 
         let text = document.getElementById('watched-text');
+        let button = text.parentElement;
         text.textContent = isWatched ? "Mark as Unwatched" : "Mark as Watched";
+
+        if (isWatched) {
+            button.setAttribute('data-watched', 'true');
+        } else {
+            button.removeAttribute('data-watched');
+        }
     } catch (error) {
         console.error("Error checking watched status:", error);
     }
@@ -263,19 +362,22 @@ function toggleWatchList() {
 
 //stergem sau adaugam filmul in lista de watched
 async function toggleWatched() {
+    let button = document.getElementById('watched-text').parentElement;
     let text = document.getElementById('watched-text');
     const movieId = window.location.pathname.split('/').pop();
     const userId = document.getElementById('userId').value;
-    const isWatched = text.textContent === "Mark as Unwatched"; // Check current state
+    const isWatched = text.textContent === "Mark as Unwatched";
 
     try {
         let url, method;
         if (isWatched) {
             url = `${BASE_URL}/watched/remove?userId=${userId}&tmdbId=${movieId}`;
             method = 'DELETE';
+            button.removeAttribute('data-watched');
         } else {
             url = `${BASE_URL}/watched/add`;
             method = 'POST';
+            button.setAttribute('data-watched', 'true');
         }
 
         const response = await fetch(url, {

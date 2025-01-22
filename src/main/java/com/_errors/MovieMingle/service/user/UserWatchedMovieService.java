@@ -3,15 +3,19 @@ package com._errors.MovieMingle.service.user;
 import com._errors.MovieMingle.dto.MovieDto;
 import com._errors.MovieMingle.model.AppUser;
 import com._errors.MovieMingle.model.Movie;
+import com._errors.MovieMingle.model.Rating;
 import com._errors.MovieMingle.model.UserWatchedMovie;
 import com._errors.MovieMingle.repository.AppUserRepository;
 import com._errors.MovieMingle.repository.MovieRepository;
+import com._errors.MovieMingle.repository.RatingRepository;
 import com._errors.MovieMingle.repository.UserWatchedMovieRepository;
 import com._errors.MovieMingle.service.MovieApiClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserWatchedMovieService {
@@ -20,6 +24,8 @@ public class UserWatchedMovieService {
 
     @Autowired
     private MovieRepository movieRepository;
+    @Autowired
+    private RatingRepository ratingRepository;
 
     @Autowired
     private UserWatchedMovieRepository userWatchedMovieRepository;
@@ -95,6 +101,20 @@ public class UserWatchedMovieService {
         // Delete the entry
         userWatchedMovieRepository.delete(watchedMovie);
         return "Movie removed from watched list.";
+    }
+
+    public List<Movie> getUserWatchedMovies(int userId) {
+        List<Movie> watchedMovies = new ArrayList<>();
+        List<Rating> ratings = ratingRepository.findByUser_Id(userId);
+
+        for (Rating rating : ratings) {
+            Movie movie = rating.getMovie();
+            if (movie != null) {
+                watchedMovies.add(movie);
+            }
+        }
+
+        return watchedMovies;
     }
 
 
