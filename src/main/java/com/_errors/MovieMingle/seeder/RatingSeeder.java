@@ -42,19 +42,9 @@ public class RatingSeeder {
     public void seedRatings() {
         popularMovies = new ArrayList<>();
 
-        // Get popular movies (5 pages = 100 movies)
-        for(int page = 1; page <= 5; page++) {
-            popularMovies.addAll(movieApiClient.getPopularMoviesPage(page));
-        }
-
         // Get top rated movies (5 pages = 100 movies)
         for(int page = 1; page <= 5; page++) {
             popularMovies.addAll(movieApiClient.getTopRatedMoviesPage(page));
-        }
-
-        // Get trending movies (5 pages = 100 movies)
-        for(int page = 1; page <= 5; page++) {
-            popularMovies.addAll(movieApiClient.getTrendingMoviesPage(page));
         }
 
         System.out.println("Fetched " + popularMovies.size() + " diverse movies from TMDB");

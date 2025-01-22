@@ -1,0 +1,45 @@
+.carousel-title {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+.movie-card h3 {
+    font-size: 0.9em;
+}
+
+.movie-card p {
+    font-size: 0.8em;
+}
+
+@media (max-width: 768px) {
+    .swiper-slide {
+        max-width: 200px;
+    }
+
+    .movie-card {
+        height: auto;
+    }
+
+    .movie-card img {
+        height: 300px;
+    }
+}
+
+@media (max-width: 300px) {
+    .swiper-slide {
+        max-width: 100px;
+    }
+
+    .movie-card img {
+        height: 240px;
+    }
+
+    .movie-card h3 {
+        font-size: 0.8em;
+    }
+
+    .movie-card p {
+        font-size: 0.7em;
+    }
+}

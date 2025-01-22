@@ -4,6 +4,7 @@ import com._errors.MovieMingle.dto.MovieDto;
 import com._errors.MovieMingle.model.AppUser;
 import com._errors.MovieMingle.model.Movie;
 import com._errors.MovieMingle.model.Rating;
+import com._errors.MovieMingle.recommendation.SVDRecommendationService;
 import com._errors.MovieMingle.repository.AppUserRepository;
 import com._errors.MovieMingle.repository.MovieRepository;
 import com._errors.MovieMingle.repository.RatingRepository;
@@ -29,21 +30,24 @@ public class RatingService {
     @Autowired
     private MovieApiClient movieApiClient;
 
+    @Autowired
+    private SVDRecommendationService svdRecommendationService;
+
     public String addRating(Long userId, Long tmdbId, int rating) {
-        // Find user
+
         AppUser user = userRepository.findById(userId);
         if (user == null) {
             return "User not found";
         }
 
-        // Găsim sau creăm filmul
+        //gasim/cream filmul
         Movie movie = movieRepository.findByTmdbId(tmdbId);
 
         //daca nu am salvat inca filmul in db il cream
         if(movie==null)
         {
             MovieDto movieDto=movieApiClient.getMovie(tmdbId);
-            // Salvăm filmul în baza de date
+            //salvam filmul in db
             movie = new Movie();
             movie.setTMDBId(tmdbId);
             movie.setSeriesTitle(movieDto.getTitle());
@@ -55,15 +59,15 @@ public class RatingService {
 
         }
 
-        // Check if rating already exists
+        //verificam daca exista deja ratingul
         Rating existingRating = ratingRepository.findByUserIdAndMovie_MovieId(userId, movie.getMovieId());
 
         if (existingRating != null) {
-            // Update existing rating
+            //update rating
             existingRating.setRating(rating);
             ratingRepository.save(existingRating);
         } else {
-            // Create new rating
+            //cream un nou rating
             Rating newRating = new Rating();
             newRating.setUser(user);
             newRating.setMovie(movie);
@@ -71,29 +75,31 @@ public class RatingService {
             ratingRepository.save(newRating);
         }
 
-        // Add to watched list if not already there
+        //adaugam la watched movie list
         boolean isWatched = userWatchedMovieService.isMovieWatched(userId, tmdbId);
         if (!isWatched) {
             userWatchedMovieService.addMovieToWatched(userId, tmdbId, movie.getSeriesTitle());
         }
+        //update la matricea de rating-uri
+        svdRecommendationService.updateRating();
 
         return "Rating added successfully";
     }
 
     public String removeRating(Long userId, Long tmdbId) {
-        // Find user
+        //gasim user
         AppUser user = userRepository.findById(userId);
         if (user == null) {
             return "User not found";
         }
 
-        // Find movie
+        //gasim film
         Movie movie = movieRepository.findByTmdbId(tmdbId);
         if (movie == null) {
             return "Movie not found";
         }
 
-        // Find and remove rating
+        //gasim rating si il stergem
         Rating existingRating = ratingRepository.findByUserIdAndMovie_MovieId(userId, movie.getMovieId());
         if (existingRating != null) {
             ratingRepository.delete(existingRating);

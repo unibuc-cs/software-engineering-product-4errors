@@ -132,6 +132,36 @@ async function sendRating(userId, movieId, rating) {
     }
 }
 
+//afisam nr de stelute dat de user pentru film, daca exista
+async function fetchUserRating() {
+    const userId = document.getElementById('userId').value;
+    const movieId = window.location.pathname.split('/').pop();
+
+    try {
+        const response = await fetch(`${BASE_URL}/ratings/user?userId=${userId}&movieId=${movieId}`);
+        const rating = await response.json();
+
+        if (rating > 0) {
+            selectStars(rating);
+            rateText.innerHTML = "Your Rating";
+        }
+    } catch (error) {
+        console.error("Error fetching user rating:", error);
+    }
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+    const path = window.location.pathname;
+    const movieId = path.split('/').pop();
+
+    console.log("Movie ID:", movieId);
+
+    await withLoader(async () => {
+        await fetchUserRating();
+        await fetchCast(movieId);
+        await fetchRecommendedMovies(movieId);
+    });
+});
 
 function showLoader() {
     document.getElementById("loader").classList.remove("hidden");
