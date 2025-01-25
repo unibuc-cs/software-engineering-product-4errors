@@ -100,10 +100,10 @@ public class UserWatchedMovieService {
 
     public List<Movie> getUserWatchedMovies(int userId) {
         List<Movie> watchedMovies = new ArrayList<>();
-        List<Rating> ratings = ratingRepository.findByUser_Id(userId);
+        List<UserWatchedMovie> movies = userWatchedMovieRepository.findByUser_Id((long)userId);
 
-        for (Rating rating : ratings) {
-            Movie movie = rating.getMovie();
+        for (UserWatchedMovie m : movies) {
+            Movie movie = m.getMovie();
             if (movie != null) {
                 watchedMovies.add(movie);
             }
@@ -114,4 +114,3 @@ public class UserWatchedMovieService {
 
 
 }
-

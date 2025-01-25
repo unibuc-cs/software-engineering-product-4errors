@@ -4,6 +4,7 @@ import com._errors.MovieMingle.dto.MovieDto;
 import com._errors.MovieMingle.model.AppUser;
 import com._errors.MovieMingle.model.Movie;
 import com._errors.MovieMingle.model.Rating;
+import com._errors.MovieMingle.model.UserToWatch;
 import com._errors.MovieMingle.recommendation.SVDRecommendationService;
 import com._errors.MovieMingle.repository.AppUserRepository;
 import com._errors.MovieMingle.repository.MovieRepository;
@@ -12,6 +13,7 @@ import com._errors.MovieMingle.service.user.UserWatchedMovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -124,5 +126,17 @@ public class RatingService {
     public Integer getUserRating(Long userId, Long movieId) {
         Rating rating = ratingRepository.findByUserIdAndMovie_MovieId(userId, movieId);
         return rating != null ? rating.getRating() : null;
+    }
+
+    public List<Movie> getUserRatedMovies(int userId) {
+        List<Movie> ratedMovies = new ArrayList<>();
+        List<Rating> ratings = ratingRepository.findByUser_Id((long) userId);
+        for (Rating rating : ratings) {
+            Movie movie = rating.getMovie();
+            if (movie != null) {
+                ratedMovies.add(movie);
+            }
+        }
+        return ratedMovies;
     }
 }

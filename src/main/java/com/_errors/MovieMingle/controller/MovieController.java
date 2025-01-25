@@ -37,8 +37,8 @@ public class MovieController {
     }
 
     @GetMapping("/{id}/recommendations")
-    public List<MovieDto> getRecommendationrMovies(@PathVariable Long id) {
-        return movieApiClient.getRecommendationrMovies(id);
+    public List<MovieDto> getRecommendationsMovies(@PathVariable Long id) {
+        return movieApiClient.getRecommendationsMovies(id);
     }
 
     @GetMapping("{id}/movie-cast")

@@ -3,6 +3,9 @@
     width: 100%;
     margin-bottom: 2rem;
 }
+:root {
+    --swiper-theme-color: #39007;
+}
 
 .movie-card h3 {
     font-size: 0.9em;
@@ -10,6 +13,14 @@
 
 .movie-card p {
     font-size: 0.8em;
+}
+.swiper-button-next, .swiper-button-prev{
+    color: #390007;
+
+}
+
+.swiper-pagination-bullet, .swiper-pagination-bullet-active{
+    background-color: #390007; !important;
 }
 
 @media (max-width: 768px) {

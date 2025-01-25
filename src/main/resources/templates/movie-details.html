@@ -117,7 +117,7 @@
         <p id="movie-description" th:text="${movie.description}">Loading...</p>
 
         <!-- Butoane -->
-        <div class="movie-buttons">
+        <div class="movie-buttons" sec:authorize="isAuthenticated()">
             <button id="favorite-button" class="favorite-button" onclick="toggleFavorite()">
                 <i class="fa fa-heart" id="favorite-icon"></i>
                 <span id="favorite-text">Add to Favorite</span>
@@ -131,9 +131,9 @@
         </div>
 
 
-        <span class="rate-text"><p>How would you rate this movie?</p></span>
+        <span class="rate-text"  sec:authorize="isAuthenticated()" ><p>How would you rate this movie?</p></span>
         <!-- Stelutele de rating -->
-        <div class="movie-rating-stars">
+        <div class="movie-rating-stars"  sec:authorize="isAuthenticated()">
             <span class="star" data-index="1"><i class="fa fa-star"></i></span>
             <span class="star" data-index="2"><i class="fa fa-star"></i></span>
             <span class="star" data-index="3"><i class="fa fa-star"></i></span>

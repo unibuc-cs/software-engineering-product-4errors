@@ -94,9 +94,6 @@ public class DefaultAppUserService implements AppUserService {
             throw new InvalidTokenException("Token is not valid");
         }
         AppUser user = userRepository.getOne(secureToken.getUser().getId());
-        if(Objects.isNull(user)){
-            return false;
-        }
         user.setAccountVerified(true);
         userRepository.save(user); // let's save user details
 
