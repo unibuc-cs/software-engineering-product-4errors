@@ -23,11 +23,12 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         return http
                 .csrf(csrf -> csrf
-                        .ignoringRequestMatchers("/profile/update-avatar"))
+                        .ignoringRequestMatchers("/profile/update-avatar","/api/movies/watched/add","/api/movies/watched/remove","/api/movies/watched/check","/api/movies/ratings/**","/api/movies/favourites/**","/api/movies/watchlist/**"))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/homepage", "/register", "/css/**", "/js/**", "/images/**").permitAll()
                         .requestMatchers("/search").permitAll()
                         .requestMatchers("/movie-details**").permitAll()
+                        .requestMatchers("/mylists").permitAll()
                         .requestMatchers("/movie-details/**").permitAll()
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/register/verify").permitAll()

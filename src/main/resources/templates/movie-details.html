@@ -12,6 +12,7 @@
     <script th:src="@{/js/movie-details.js}" defer></script>
 </head>
 <body>
+<input type="hidden" id="userId" th:value="${user.id}">
 <header>
     <nav class="navbar">
         <!-- Logo -->
@@ -32,6 +33,7 @@
 
             <!-- Linkuri pentru utilizatori autentificați -->
             <li sec:authorize="isAuthenticated()"><a href="/recommendations">Recommended</a></li>
+            <li sec:authorize="isAuthenticated()"><a href="/mylists">My Movies</a></li>
             <li sec:authorize="isAuthenticated()">
                 <a href="/profile" class="profile-link">
                     <img th:src="'/images/' + ${user.avatar}" alt="Profile" class="avatar-image" />
