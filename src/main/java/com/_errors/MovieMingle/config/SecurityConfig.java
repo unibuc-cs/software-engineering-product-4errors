@@ -27,6 +27,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/homepage", "/register", "/css/**", "/js/**", "/images/**").permitAll()
                         .requestMatchers("/search").permitAll()
+                        .requestMatchers("/forgotPassword").permitAll()
+                        .requestMatchers("/password").permitAll()
+                        .requestMatchers("/password/**").permitAll()
+                        .requestMatchers("/password/request").permitAll()
+                        .requestMatchers("/password/change").permitAll()
                         .requestMatchers("/movie-details**").permitAll()
                         .requestMatchers("/mylists").permitAll()
                         .requestMatchers("/movie-details/**").permitAll()

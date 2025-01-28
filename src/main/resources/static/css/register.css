@@ -5,6 +5,12 @@
     box-sizing: border-box;
     font-family: Arial, sans-serif;
 }
+button#resetPassword {
+    margin-top: 2rem; !important;
+    background-color: #390007 !important;
+    border-color: #390007 !important;
+}
+
 header {
     position: absolute;
     top: 0;
