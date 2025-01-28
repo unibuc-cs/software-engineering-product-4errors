@@ -14,5 +14,5 @@ public interface AppUserService {
     boolean verifyUser(final String token) throws InvalidTokenException;
     AppUser getUserById(final String id) throws UnknownIdentifierException;
     AppUser findByEmail(String email);
-
+    AppUser processOAuth2User(String email, String firstName, String lastName, String provider);
 }
