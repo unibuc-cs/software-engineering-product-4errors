@@ -31,6 +31,7 @@
             <!-- Linkuri pentru utilizatori autentificați -->
             <li sec:authorize="isAuthenticated()"><a href="/recommendations">Recommended</a></li>
             <li sec:authorize="isAuthenticated()"><a href="/mylists">My Movies</a></li>
+            <li sec:authorize="isAuthenticated()"><a href="/dashboard">My Dashboard</a> </li>
             <!--<li sec:authorize="isAuthenticated()">
                 <a href="/profile" class="profile-link">
                     <img th:src="'/images/' + ${user.avatar}" alt="Profile" class="avatar-image" />

@@ -1,20 +1,18 @@
 package com._errors.MovieMingle.controller;
 
 import com._errors.MovieMingle.dto.ActorDto;
-import com._errors.MovieMingle.dto.MovieApiResponse;
 import com._errors.MovieMingle.dto.MovieDto;
 import com._errors.MovieMingle.service.MovieApiClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/movies")
 public class MovieController {
+
 
     @Autowired
     private MovieApiClient movieApiClient;

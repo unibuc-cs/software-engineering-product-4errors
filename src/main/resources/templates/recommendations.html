@@ -36,6 +36,7 @@
             <!-- Linkuri pentru utilizatori autentificați -->
             <li sec:authorize="isAuthenticated()"><a href="/recommendations">Recommended</a></li>
             <li sec:authorize="isAuthenticated()"><a href="/mylists">My Movies</a></li>
+            <li sec:authorize="isAuthenticated()"><a href="/dashboard">My Dashboard</a> </li>
             <li sec:authorize="isAuthenticated()">
                 <a href="/profile" class="profile-link">
                     <img th:src="'/images/' + ${user.avatar}" alt="Profile" class="avatar-image" />
@@ -95,6 +96,23 @@
             <div class="swiper-pagination"></div>
         </div>
     </div>
+
+    <!-- Surprise Me button -->
+    <div style="text-align: center; margin-top: 20px;">
+        <button id="surpriseMeBtn" class="outline-button" role="button">
+            Surprise Me!
+        </button>
+
+    </div>
+
+    <!-- Go to Profile button -->
+    <div style="text-align: center; margin-top: 20px;">
+        <button id="surpriseMeBtn2" class="outline-button" title="Surprise me">
+            Surprise Me 🎲
+        </button>
+    </div>
+
+
 </main>
 
 
