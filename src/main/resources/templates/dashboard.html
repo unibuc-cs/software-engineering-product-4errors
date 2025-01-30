@@ -14,18 +14,41 @@
 
 <header>
     <nav class="navbar">
+        <!-- Logo -->
         <a class="logo" href="/">MovieMingle</a>
+
+        <!-- Meniu de tip hamburger -->
+        <button class="menu-toggle">
+            <span class="menu-icon"></span>
+            <span class="menu-icon"></span>
+            <span class="menu-icon"></span>
+        </button>
+
+        <!-- Linkuri - se aplică securitatea individual pe fiecare element -->
         <ul class="nav-links">
+            <!-- Link public -->
             <li><a href="/homepage">Home</a></li>
             <li><a href="/search">Search</a></li>
+
+            <!-- Linkuri pentru utilizatori autentificați -->
             <li sec:authorize="isAuthenticated()"><a href="/recommendations">Recommended</a></li>
             <li sec:authorize="isAuthenticated()"><a href="/mylists">My Movies</a></li>
             <li sec:authorize="isAuthenticated()"><a href="/dashboard">My Dashboard</a> </li>
-            <li>
+            <li sec:authorize="isAuthenticated()">
                 <a href="/profile" class="profile-link">
-                    <img th:src="'/images/' + ${user.avatar}" alt="Profile" class="avatar-image">
+                    <img th:src="'/images/' + ${user.avatar}" alt="Profile" class="avatar-image" />
+                    <span class="profile-text">Profile</span>
                 </a>
             </li>
+
+            <!-- Butoane pentru utilizatori neautentificați -->
+            <li sec:authorize="!isAuthenticated()">
+                <a href="/register" class="outline-button">Register</a>
+            </li>
+            <li sec:authorize="!isAuthenticated()">
+                <a href="/login" class="outline-button">Log In</a>
+            </li>
+
         </ul>
     </nav>
 </header>

@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }
             } catch (error) {
                 console.error("Error fetching the surprise movie:", error);
-                alert("A problem occurred. Check the console for details.");
+               /* alert("A problem occurred. Check the console for details.");*/
             }
         });
     } else {

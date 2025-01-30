@@ -37,8 +37,17 @@ public class RatingController {
     public Integer getUserRating(
             @RequestParam Long userId,
             @RequestParam Long movieId) {
-        Movie movie=movieRepository.findByTmdbId(movieId);
+
+        Movie movie = movieRepository.findByTmdbId(movieId);
+
+        if (movie == null) {
+            System.out.println("⚠ Movie with TMDB ID " + movieId + " not found! Returning default rating...");
+            return 0; // Sau return 0 dacă vrei să semnalizezi că nu există rating
+        }
+
         return ratingService.getUserRating(userId, movie.getMovieId());
     }
+
+
 
 }

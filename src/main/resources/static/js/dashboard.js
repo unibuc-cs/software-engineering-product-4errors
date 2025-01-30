@@ -59,3 +59,24 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error("Error fetching dashboard data:", error);
     }
 });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
+
+    menuToggle?.addEventListener("click", () => {
+        menuToggle.classList.toggle("open");
+        navLinks.classList.toggle("show");
+    });
+
+    const navbar = document.querySelector(".navbar");
+
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > 50) { // După 50px scroll
+            navbar.classList.add("scrolled");
+        } else {
+            navbar.classList.remove("scrolled");
+        }
+    });
+});
