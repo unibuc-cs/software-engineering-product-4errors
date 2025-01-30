@@ -54,3 +54,24 @@
         font-size: 0.7em;
     }
 }
+.outline-button {
+    background-color: #fff;
+    color: #390007;
+    border: 2px solid #390007;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.outline-button:hover {
+    background-color: #390007;
+    color: #fff;
+}
+#surpriseMeBtn {
+    pointer-events: auto;
+    opacity: 1;
+    background-color: black;
+    color: black;
+    border: black;
+}

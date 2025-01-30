@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovieMingle - Dashboard</title>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" th:href="@{/css/homepage.css}"/>
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script th:src="@{/js/dashboard.js}" defer></script>
+</head>
+<body>
+
+<header>
+    <nav class="navbar">
+        <a class="logo" href="/">MovieMingle</a>
+        <ul class="nav-links">
+            <li><a href="/homepage">Home</a></li>
+            <li><a href="/search">Search</a></li>
+            <li sec:authorize="isAuthenticated()"><a href="/recommendations">Recommended</a></li>
+            <li sec:authorize="isAuthenticated()"><a href="/mylists">My Movies</a></li>
+            <li sec:authorize="isAuthenticated()"><a href="/dashboard">My Dashboard</a> </li>
+            <li>
+                <a href="/profile" class="profile-link">
+                    <img th:src="'/images/' + ${user.avatar}" alt="Profile" class="avatar-image">
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<main class="dashboard-main">
+    <h2 class="dashboard-title">User Dashboard 📊</h2>
+
+    <div class="dashboard-container">
+        <!-- General Statistics -->
+        <div class="chart-container">
+            <h3 class="chart-title">User Stats 📊</h3>
+            <p class="chart-description">Total movies watched, total hours, and average rating</p>
+            <canvas id="userStatsChart"></canvas>
+        </div>
+
+        <!-- Monthly Activity -->
+        <div class="chart-container">
+            <h3 class="chart-title">Monthly Activity 📅</h3>
+            <p class="chart-description">Number of movies watched each month</p>
+            <canvas id="monthlyActivityChart"></canvas>
+        </div>
+
+        <!-- Genre Distribution -->
+        <div class="chart-container">
+            <h3 class="chart-title">Genre Distribution 🎭</h3>
+            <p class="chart-description">Top movie genres watched by you</p>
+            <canvas id="genresChart"></canvas>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>
