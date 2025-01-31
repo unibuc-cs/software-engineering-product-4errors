@@ -13,6 +13,19 @@ public class SVDRecommendationService {
     private final MovieRepository movieRepository;
     private RatingMatrix ratingMatrix;
     private RealMatrix U;
+
+    public RealMatrix getU() {
+        return U;
+    }
+
+    public RealMatrix getS() {
+        return S;
+    }
+
+    public RealMatrix getVt() {
+        return Vt;
+    }
+
     private RealMatrix S;
     private RealMatrix Vt;
 
