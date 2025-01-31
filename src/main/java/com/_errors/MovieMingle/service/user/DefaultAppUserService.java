@@ -94,9 +94,6 @@ public class DefaultAppUserService implements AppUserService {
             throw new InvalidTokenException("Token is not valid");
         }
         AppUser user = userRepository.getOne(secureToken.getUser().getId());
-        if(Objects.isNull(user)){
-            return false;
-        }
         user.setAccountVerified(true);
         userRepository.save(user); // let's save user details
 
@@ -120,18 +117,46 @@ public class DefaultAppUserService implements AppUserService {
         return userRepository.findByEmail(email);
     }
 
-//    @Override
-//    public MfaTokenData mfaSetup(String email) throws UnknownIdentifierException, QrGenerationException {
-//        AppUser user= userRepository.findByEmail(email);
-//        if(user == null ){
-//            // we will ignore in case account is not verified or account does not exist
-//            throw new UnknownIdentifierException("unable to find account or account is not active");
-//        }
-//        return new MfaTokenData( mfaTokenManager.getQRCode( user.getSecret()), user.getSecret());
-//    }
-
     private void encodePassword(RegisterDto source, AppUser target){
         target.setPassword(passwordEncoder.encode(source.getPassword()));
     }
+
+    @Override
+    public AppUser processOAuth2User(String email, String firstName, String lastName, String provider) {
+        // Verifică dacă utilizatorul există deja în baza de date
+        AppUser existingUser = userRepository.findByEmail(email);
+
+        if (existingUser != null) {
+            // Dacă utilizatorul există și provider-ul este deja setat la "google", îl returnăm
+            if (provider.equals(existingUser.getProvider())) {
+                return existingUser;
+            }
+
+            // Dacă utilizatorul există dar nu are provider setat, adaugăm "google" ca provider
+            if (existingUser.getProvider() == null) {
+                existingUser.setProvider(provider); // Setăm provider-ul la "google"
+                userRepository.save(existingUser); // Actualizăm utilizatorul în baza de date
+                return existingUser;
+            }
+
+            // Dacă utilizatorul există dar are alt provider (acest caz nu ar trebui să existe în scenariul tău)
+            throw new IllegalStateException("Email already associated with a different provider: " + existingUser.getProvider());
+        }
+
+        // Creează un utilizator nou pentru cazul în care utilizatorul nu există
+        AppUser newUser = new AppUser();
+        newUser.setEmail(email);
+        newUser.setFirstName(firstName);
+        newUser.setLastName(lastName);
+        newUser.setProvider(provider); // Setăm provider-ul la "google"
+        newUser.setRole("user"); // Poți seta un rol implicit
+        newUser.setAccountVerified(true); // Conturile prin Google pot fi considerate verificate implicit
+        newUser.setCreatedAt(new Date());
+        newUser.setAvatar("general_avatar.png");
+
+        // Salvează utilizatorul în baza de date
+        return userRepository.save(newUser);
+    }
+
 
 }

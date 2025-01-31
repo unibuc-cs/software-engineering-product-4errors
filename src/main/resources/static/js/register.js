@@ -1,5 +1,20 @@
 document.addEventListener('DOMContentLoaded', function () {
 
+    document.getElementById('forgotPasswordLink').addEventListener('click', function (event) {
+        event.preventDefault(); // Previne comportamentul implicit
+        $('#forgotPasswordModel').modal('show'); // Afișează modalul
+
+        // Elimină fundalul generat doar pentru acest modal
+        const backdrops = document.querySelectorAll('.modal-backdrop');
+        backdrops.forEach((backdrop) => {
+            if (backdrop.parentNode) {
+                backdrop.parentNode.removeChild(backdrop);
+            }
+        });
+    });
+
+
+
     const passwordField = document.getElementById('password');
     const confirmPasswordField = document.getElementById('confirmPassword');
 
@@ -13,6 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
     passwordField.addEventListener('copy', disableCopyPasteCut);
     passwordField.addEventListener('paste', disableCopyPasteCut);
     passwordField.addEventListener('cut', disableCopyPasteCut);
+
 
     confirmPasswordField.addEventListener('copy', disableCopyPasteCut);
     confirmPasswordField.addEventListener('paste', disableCopyPasteCut);
@@ -96,6 +112,7 @@ function togglePasswordVisibility(fieldId) {
         eyeIcon.setAttribute("name", "eye-outline"); // Schimbă iconița în ochi închis
     }
 }
+
 
 
 

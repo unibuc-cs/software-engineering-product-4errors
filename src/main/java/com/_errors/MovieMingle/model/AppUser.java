@@ -22,6 +22,7 @@ public class AppUser {
     private boolean accountVerified;
     private boolean quizCompleted=false;
     private String avatar;
+    private String provider; // google OAuth2
 
     public String getAvatar() {
         return avatar;
@@ -113,4 +114,11 @@ public class AppUser {
         this.quizCompleted = quizCompleted;
     }
 
+    public String getProvider() {
+        return provider;
+    }
+
+    public void setProvider(String provider) {
+        this.provider = provider;
+    }
 }

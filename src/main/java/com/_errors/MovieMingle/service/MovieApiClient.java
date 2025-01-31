@@ -171,7 +171,7 @@ public class MovieApiClient {
     }
 
     // Metoda pentru obținerea filmelor similare unui film
-    public List<MovieDto> getRecommendationrMovies(Long movieId) {
+    public List<MovieDto> getRecommendationsMovies(Long movieId) {
         String url = API_BASE_URL + "/movie/" + movieId + "/recommendations?api_key=" + apiKey;
         MovieApiResponse response = restTemplate.getForObject(url, MovieApiResponse.class);
         List<MovieDto> movies = response != null ? response.getResults() : Arrays.asList(); // Extragem lista de filme din "results"

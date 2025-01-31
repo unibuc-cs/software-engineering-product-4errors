@@ -1,0 +1,103 @@
+body {
+    background-color: #000;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Dashboard title */
+.dashboard-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #ffffff;
+    text-align: center;
+    margin-top: 120px;
+    margin-bottom: 30px;
+}
+
+/* Main container for charts */
+.dashboard-container {
+
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    width: 90%;
+    max-width: 1400px;
+    margin: auto;
+    margin-top: 100px;
+    flex-wrap: nowrap;
+}
+
+/* Containers for charts */
+.chart-container {
+    width: 30%;
+    max-width: 450px;
+    height: 450px;
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* For genres chart */
+#genresChartContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 15px;
+}
+
+/* Legend for genre chart */
+#genresChartContainer .chart-legend {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 10px;
+}
+
+.chart-legend span {
+    font-size: 12px;
+    margin: 5px;
+    padding: 3px 6px;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Canvas */
+canvas {
+    max-width: 90%;
+    height: auto;
+    display: block;
+    margin: auto;
+}
+
+/* Responsivity */
+@media (max-width: 1200px) {
+    .dashboard-container {
+        flex-wrap: wrap;
+    }
+
+    .chart-container {
+        width: 45%;
+    }
+}
+
+@media (max-width: 800px) {
+    .dashboard-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .chart-container {
+        width: 80%;
+    }
+}

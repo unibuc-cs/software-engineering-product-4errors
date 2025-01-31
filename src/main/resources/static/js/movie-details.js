@@ -189,22 +189,6 @@ function formatRuntime(minutes) {
     return `${hours}h ${remainingMinutes}min`;
 }
 
-document.addEventListener("DOMContentLoaded", async () => {
-    // Obține path-ul complet
-    const path = window.location.pathname; // De exemplu: "/movie-details/123"
-
-    // Extrage ID-ul folosind split
-    const movieId = path.split('/').pop(); // Rezultat: "123"
-
-    console.log("Movie ID:", movieId);
-
-    await withLoader(async () => {
-        // Inițializăm cast-ul filmele recomandate
-        await fetchCast(movieId);
-        await fetchRecommendedMovies(movieId);
-    });
-});
-
 // Asigură funcționalitatea meniului
 document.addEventListener("DOMContentLoaded", () => {
     const menuToggle = document.querySelector(".menu-toggle");

@@ -1,8 +1,6 @@
 package com._errors.MovieMingle.controller;
 
-import com._errors.MovieMingle.config.SecurityConfig;
 import com._errors.MovieMingle.exception.InvalidTokenException;
-import com._errors.MovieMingle.exception.UnknownIdentifierException;
 import com._errors.MovieMingle.exception.UserAlreadyExistsException;
 import com._errors.MovieMingle.model.AppUser;
 import com._errors.MovieMingle.dto.RegisterDto;
@@ -10,12 +8,9 @@ import com._errors.MovieMingle.repository.AppUserRepository;
 import com._errors.MovieMingle.service.user.DefaultAppUserService;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,7 +19,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.thymeleaf.util.StringUtils;
 
-import java.util.Date;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 @Controller
 @RequestMapping("/register")
@@ -43,6 +40,11 @@ public class RegistrationController {
 
     @GetMapping
     public String register(Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated() && !(authentication instanceof AnonymousAuthenticationToken)) {
+            // Redirecționează utilizatorul autentificat la pagina principală
+            return "redirect:/homepage";
+        }
         RegisterDto registerDto = new RegisterDto();
         model.addAttribute(registerDto);
 
@@ -57,6 +59,7 @@ public class RegistrationController {
             BindingResult result,
             RedirectAttributes redirectAttributes
     ){
+
         if (!registerDto.getPassword().equals(registerDto.getConfirmPassword())){
             result.addError(
                     new FieldError("registerDto", "confirmPassword",

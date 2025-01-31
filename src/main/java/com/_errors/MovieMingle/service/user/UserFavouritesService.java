@@ -76,9 +76,9 @@ public class UserFavouritesService {
         return "Movie removed from favourites.";
     }
 
-    public List<Movie> getUserFavouriteMovies(int userId) {
+    public List<Movie> getUserFavouriteMovies(long userId) {
         List<Movie> favouriteMovies = new ArrayList<>();
-        List<UserFavourite> favourites = userFavouritesRepository.findByUser_Id((long)userId);
+        List<UserFavourite> favourites = userFavouritesRepository.findByUser_Id(userId);
 
         for (UserFavourite favourite : favourites) {
             Movie movie = favourite.getMovie();

@@ -1,17 +1,17 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Movie Search</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Load icon library -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <link rel="stylesheet" th:href="@{/css/search.css}" />
-    <script th:src="@{/js/search.js}" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovieMingle - Dashboard</title>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" th:href="@{/css/homepage.css}"/>
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script th:src="@{/js/dashboard.js}" defer></script>
 </head>
 <body>
+
 <header>
     <nav class="navbar">
         <!-- Logo -->
@@ -41,14 +41,6 @@
                 </a>
             </li>
 
-            <!-- Buton de logout pentru utilizatori autentificați
-            <li sec:authorize="isAuthenticated()">
-                <form sec:authorize="isAuthenticated()" method="post" action="/logout">
-                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-                    <button type="submit" class="outline-button">Log Out</button>
-                </form>
-            </li>-->
-
             <!-- Butoane pentru utilizatori neautentificați -->
             <li sec:authorize="!isAuthenticated()">
                 <a href="/register" class="outline-button">Register</a>
@@ -60,22 +52,33 @@
         </ul>
     </nav>
 </header>
-<div id="loader" class="loader-overlay">
-    <div class="spinner"></div>
-</div>
-<div id="search-container">
-    <form id="search-form">
-        <input type="text" id="search-bar" placeholder="Search for movies..." />
-        <button type="submit"><i class="fa fa-search"></i></button>
-    </form>
-</div>
-<div id="tags" class="tags-container"></div>
-<div id="results" class="results-message"></div>
-<div id="movies-container" class="grid-container"></div>
-<div id="load-more-container">
-    <button id="load-more-button">Load More</button>
-</div>
 
+<main class="dashboard-main">
+    <h2 class="dashboard-title">User Dashboard 📊</h2>
+
+    <div class="dashboard-container">
+        <!-- General Statistics -->
+        <div class="chart-container">
+            <h3 class="chart-title">User Stats 📊</h3>
+            <p class="chart-description">Total movies watched, total hours, and average rating</p>
+            <canvas id="userStatsChart"></canvas>
+        </div>
+
+        <!-- Monthly Activity -->
+        <div class="chart-container">
+            <h3 class="chart-title">Monthly Activity 📅</h3>
+            <p class="chart-description">Number of movies watched each month</p>
+            <canvas id="monthlyActivityChart"></canvas>
+        </div>
+
+        <!-- Genre Distribution -->
+        <div class="chart-container">
+            <h3 class="chart-title">Genre Distribution 🎭</h3>
+            <p class="chart-description">Top movie genres watched by you</p>
+            <canvas id="genresChart"></canvas>
+        </div>
+    </div>
+</main>
 
 </body>
 </html>

@@ -1,5 +1,6 @@
 package com._errors.MovieMingle.controller;
 import com._errors.MovieMingle.service.user.UserFavouritesService;
+import com._errors.MovieMingle.service.user.UserWatchedMovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -8,10 +9,12 @@ import java.util.Map;
 @RequestMapping("/api/movies/favourites")
 public class UserFavouritesController {
     private final UserFavouritesService userFavouritesService;
+    private final UserWatchedMovieService userWatchedMovieService;
 
     @Autowired
-    public UserFavouritesController(UserFavouritesService userFavouritesService) {
+    public UserFavouritesController(UserFavouritesService userFavouritesService, UserWatchedMovieService userWatchedMovieService) {
         this.userFavouritesService = userFavouritesService;
+        this.userWatchedMovieService = userWatchedMovieService;
     }
 
     @PostMapping("/add")
@@ -19,7 +22,7 @@ public class UserFavouritesController {
         Long userId = Long.parseLong(request.get("userId").toString());
         Long tmdbId = Long.parseLong(request.get("tmdbId").toString());
         String title = request.get("title").toString();
-
+        userWatchedMovieService.addMovieToWatched(userId, tmdbId, title);
         return userFavouritesService.addMovieToFavourites(userId, tmdbId, title);
     }
     @DeleteMapping("/remove")

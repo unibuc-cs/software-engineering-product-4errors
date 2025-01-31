@@ -36,6 +36,7 @@
             <!-- Linkuri pentru utilizatori autentificați -->
             <li sec:authorize="isAuthenticated()"><a href="/recommendations">Recommended</a></li>
             <li sec:authorize="isAuthenticated()"><a href="/mylists">My Movies</a></li>
+            <li sec:authorize="isAuthenticated()"><a href="/dashboard">My Dashboard</a> </li>
             <li sec:authorize="isAuthenticated()">
                 <a href="/profile" class="profile-link">
                     <img th:src="'/images/' + ${user.avatar}" alt="Profile" class="avatar-image" />
@@ -66,7 +67,15 @@
 <main style="margin-top: 50px; padding: 10px;">
     <div id="recommended-carousel" class="carousel-container">
         <h2 class="carousel-title">Your Recommended Movies🍿🎬</h2>
-        <div class="swiper">
+
+        <!-- Afișăm mesajul dacă nu există recomandări -->
+        <div th:if="${recommendedMovies.size() == 0}" style="text-align: center; margin-top: 20px; color: #ff0000;">
+            <p>We couldn't find any recommendations for you right now. 😔</p>
+            <p>Try rating more movies or updating your preferences to get better recommendations!</p>
+        </div>
+
+        <!-- Afișăm caruselul doar dacă există recomandări -->
+        <div th:if="${recommendedMovies.size() > 0}" class="swiper">
             <div class="swiper-wrapper">
                 <!-- Each movie card will be a swiper-slide -->
                 <div class="swiper-slide" th:each="movie : ${recommendedMovies}">
@@ -87,6 +96,16 @@
             <div class="swiper-pagination"></div>
         </div>
     </div>
+
+
+    <!-- Go to Profile button -->
+    <div style="text-align: center; margin-top: 20px;">
+        <button id="surpriseMeBtn2" class="outline-button" title="Surprise me">
+            Surprise Me 🎲
+        </button>
+    </div>
+
+
 </main>
 
 
