@@ -132,6 +132,17 @@ MovieMingle is a web application that recommends movies to users based on their 
 ### Class Diagram
 ![Class Diagram](/Diagrams/moviemingle_class_diagram.png)
 
+## 📈 C4 Diagrams
+
+### System Context Diagram
+<img src="/Diagrams/C4%20Diagram%20MovieMingle%20SystemContext.png" width="400" alt="System Context Diagram">
+
+### Containers Diagram
+<img src="/Diagrams/C4%20Diagram%20MovieMingle%20Containers.png" width="600" alt="Containers Diagram">
+
+### Components Diagram
+<img src="/Diagrams/C4%20Diagram%20MovieMingle%20Components.png" width="1000" alt="Components Diagram">
+
 ## 📃 Scenarios
 
 ### 🌱 Valentina
