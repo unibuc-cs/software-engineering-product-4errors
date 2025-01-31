@@ -244,6 +244,22 @@ You can view the project backlog on GitHub by clicking [here](https://github.com
 - Users must be able to **search for a movie by title**.  
 - Users must be able to **filter movies by genres** (e.g., Fiction, Comedy).  
 
+## 🔒 Non-Functional Requirements  
+
+### 🔐 Security  
+- The system must support **user authentication** and guarantee that passwords are **securely managed**, utilizing at least basic encryption or hashing techniques.  
+
+---
+
+### ⚡ Performance  
+- The application should deliver a **responsive experience**, ensuring that **movie searches** and **list loading** happen with minimal delay.  
+
+---
+
+### 🌍 Compatibility  
+- The system should be **optimized for Google Chrome and Microsoft Edge**, with no requirement for adaptation to other browsers.  
+
+
 
 ## 🛠️ QA  
 
