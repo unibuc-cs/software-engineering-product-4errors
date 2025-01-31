@@ -180,6 +180,140 @@ You can view the project backlog on GitHub by clicking [here](https://github.com
 | 13  | Ensure responsiveness functionality for the design and create a logo for our app                             | Low      | January         |
 
 
+## 🏛️ Architectural Description  
+
+## 🛠️ QA  
+
+## 🛡️ Security Analysis 
+MovieMingle implements **Spring Security** for authentication, supporting both **email/password login** and **OAuth2 (Google)**. Password reset is secured via **token-based validation**. This analysis aligns with **OWASP Top 10** security risks, identifying key risks and recommending improvements to enhance overall system security.
+
+---
+
+### 🔑 Password Security  
+✔ **Strengths:**  
+- Uses **BCrypt hashing** for strong password protection.  
+- Password validation enforces **regular expressions** to prevent weak passwords.  
+
+⚡ **Improvements:**  
+- Set **BCrypt cost factor to 12+** to enhance brute-force resistance.  
+- Implement a **password policy validator** enforcing stricter password complexity.  
+
+---
+
+### 📧 Email Verification Tokens  
+✔ **Strengths:**  
+- Email verification is required before account activation.  
+- Tokens are **single-use** and **auto-deleted upon verification**.  
+
+⚡ **Improvements:**  
+- **Schedule clean-up of expired tokens** to optimize database performance.  
+- **Enforce token expiration** (e.g., **24 hours**) to limit prolonged access.  
+
+---
+
+### 🔄 Password Reset Mechanism Security  
+✔ **Strengths:**  
+- Password reset is **token-based** and secured via email verification.  
+- Reset tokens are **deleted immediately after use**, preventing reuse.  
+
+⚡ **Improvements:**  
+- **Set token expiration** (e.g., **30 min**) to mitigate unauthorized use.  
+- **Ensure only one active reset token per user** at any time.  
+
+---
+
+### 🌐 OAuth2 Authentication (Google)  
+✔ **Strengths:**  
+- OAuth2 login is integrated, ensuring a seamless authentication process.  
+- The application **extracts and verifies the user's email** as a unique identifier.  
+
+⚠ **Observations:**  
+- Authentication **fails** if the OAuth2 provider **does not return an email**.  
+
+⚡ **Improvements:**  
+- Add **fallback handling** for cases where an email attribute is missing.  
+
+---
+
+### 🛑 CSRF Protection  
+✔ **Strength:** **CSRF is enabled** for user authentication and account-related actions. 
+
+---
+
+
+### 🚧 Brute Force Protection  
+⚠ **Observations:**  
+- No **rate limiting** for login attempts, making the system vulnerable to brute force attacks.  
+- No **temporary account lockout mechanism** for repeated authentication failures.  
+
+🔒 **Recommendations:**  
+- Implement **rate limiting** (e.g., **5 attempts per 10 sec**) and **temporary account lockout** after multiple failures.  
+- Introduce a **captcha challenge** (e.g., Google reCAPTCHA) for flagged login attempts.  
+
+---
+
+### 🔑 Role-Based Access Control (RBAC)  
+⚠ **Observation:**  
+- **No Role-Based Access Control (RBAC)** is currently implemented, meaning all authenticated users have the same access level.  
+
+🔒 **Recommendations:**  
+- Introduce **RBAC** to restrict access to administrative or privileged functionalities.  
+- Define **user roles** such as `USER`, `ADMIN`, and potentially `MODERATOR` to enforce **least privilege principles**.  
+- Implement **Spring Security role-based authorization** to control access to specific endpoints.  
+
+---
+ 
+
+### 🔐 API Security  
+✔ **Strengths:**  
+- API endpoints that modify user data require authentication.  
+
+⚠ **Observations:**  
+- **All TMDb API endpoints are publicly accessible**, increasing exposure.  
+- **No rate limiting on public API requests**, making them vulnerable to excessive usage.  
+
+🔒 **Recommendations:**  
+- Apply **rate limiting** on public endpoints to prevent abuse.  
+- Implement **IP-based throttling** for frequently requested APIs. 
+
+---
+
+### 🚨 Denial of Service (DoS) Protection  
+✔ **Strengths:**  
+- Uses efficient API design to handle multiple requests.  
+
+⚠ **Observations:**  
+- **No request rate limiting** on login and token generation endpoints.  
+- **Excessive API calls** could degrade performance.  
+
+🔒 **Recommendations:**  
+- Implement **IP-based request limiting** to prevent abusive behavior.  
+- Introduce **caching mechanisms** for frequently requested responses.  
+- Monitor **high request spikes** to detect potential DoS attacks.
+
+
+---
+### 🔐 SQL Injection Protection  
+✔ **Strengths:**  
+- **Hibernate (JPA)** is used for database interactions, which **prevents SQL Injection** by utilizing **prepared statements** internally.  
+- Queries are executed using **JPQL (Java Persistence Query Language)**, ensuring safe query execution without direct SQL manipulation.  
+- No **native queries** are used, eliminating risks from manual string concatenation in database queries.  
+
+⚠ **Potential Risks:**  
+- While Hibernate prevents direct SQL Injection, **improper query construction** (e.g., dynamic query building with concatenation in JPQL) could still pose a risk.
+
+---
+### 🔒 HTTPS Enforcement  
+⚠ **Observations:**  
+- The application currently runs on **localhost**, so HTTPS enforcement is not required in development stage.  
+
+🔒 **Recommendations for Production Deployment:**  
+- Ensure **HTTPS is enforced** for all external requests when deploying to a live environment.  
+---
+
+## 🚀 CI/CD
+
+
      
 
 
