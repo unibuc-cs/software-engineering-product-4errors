@@ -181,6 +181,45 @@ You can view the project backlog on GitHub by clicking [here](https://github.com
 
 
 ## 🏛️ Architectural Description  
+### 🚀 Functional Requirements  
+
+#### 👤 User Management  
+- Users must be able to **create an account** using email and password and log in securely.  
+- Users must be able to **view their profile**, including their movie lists:  
+  - 🎞️ *Watched*  
+  - 📌 *To Watch*  
+  - ❤️ *Favourite*  
+  - ⭐ *Rated*  
+- Users must be able to **edit their profile** and update their movie ratings.  
+- Users must be able to **view a personalized dashboard** based on their watched movies.  
+
+---
+
+#### 🎥 Movie Management  
+- Users must be able to view a **list of top-watched and top-rated movies**.  
+- Users must be able to access **detailed information about a movie**, including:  
+  - 🎭 Title  
+  - 🎬 Genre  
+  - 📝 Description  
+  - ⭐ Ratings  
+  - 🎭 Cast  
+
+---
+
+#### 🔄 User Interactions  
+- Users must be able to **add movies** to their personal lists:  
+  - 📌 *Watch*  
+  - ❤️ *Favourite*  
+  - ⭐ *Rated*  
+  - ⏳ *To Watch*  
+- Users must be able to **rate a movie** on a scale of **1-10 stars**.  
+
+---
+
+#### 🔍 Search & Navigation  
+- Users must be able to **search for a movie by title**.  
+- Users must be able to **filter movies by genres** (e.g., Fiction, Comedy).  
+
 
 ## 🛠️ QA  
 
