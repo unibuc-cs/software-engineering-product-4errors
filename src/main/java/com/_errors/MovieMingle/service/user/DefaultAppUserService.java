@@ -16,6 +16,10 @@ import org.springframework.beans.BeanUtils;
 import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
@@ -154,8 +158,14 @@ public class DefaultAppUserService implements AppUserService {
         newUser.setCreatedAt(new Date());
         newUser.setAvatar("general_avatar.png");
 
-        // Salvează utilizatorul în baza de date
-        return userRepository.save(newUser);
+        newUser = userRepository.save(newUser);
+        userRepository.flush();
+
+        // Actualizează contextul de securitate
+        Authentication authentication = new UsernamePasswordAuthenticationToken(newUser, null, AuthorityUtils.createAuthorityList("USER"));
+        SecurityContextHolder.getContext().setAuthentication(authentication); // Actualizează securitatea cu utilizatorul autentificat
+
+        return newUser;
     }
 
 
