@@ -181,6 +181,90 @@ You can view the project backlog on GitHub by clicking [here](https://github.com
 
 
 ## 🏛️ Architectural Description  
+### 🔧 Technologies used
+
+###  Backend 
+- **Spring Boot Framework**: Core Java framework powering the application architecture through controllers (HTTP request handling), services (business logic), and models (data structure)
+
+- **MySQL**: Local database system storing application data, working with JPA Repository for streamlined database operations without complex SQL queries
+
+- **Security Implementation**: 
+ - JWT (JSON Web Tokens) for secure authentication and session management
+ - CSRF protection against malicious attacks 
+ - Google OAuth2 integration for Google account sign-in functionality
+
+### Data Management 
+- **Data Transfer Objects (DTOs)**: Manages efficient data transfer between frontend and backend layers
+
+- **Java Database Seeder**: Handles database initialization with starter data for development and testing
+
+### Frontend 
+- **Thymeleaf**: Server-side Java template engine
+- **HTML, JavaScript, and CSS**
+  
+### External Integration 
+- **TMDB API**: Provides real-time movie data, ratings, and cinema information
+
+### ✨ Final Product
+Movie Mingle is a web application designed for movie enthusiasts of all tastes. It provides personalized movie recommendations based on user ratings and offers endless opportunities to explore the vast world of cinema using TMDB’s extensive movie database. Users can effortlessly organize their movie lists into categories such as Watched, To Watch, Favorites, and Rated, making it easier to plan their next movie night. Additionally, the dashboard analytics section allows them to track their viewing activity.
+
+Our final product aligns closely with our initial vision while incorporating enhancements such as API integration for fetching detailed movie information and seeders to populate our database. We also introduced new features, including a Favorites and Rated movies list and Google OAuth integration, elevating the user experience.
+  
+### 🚀 Functional Requirements  
+
+#### 👤 User Management  
+- Users must be able to **create an account** using email and password and log in securely.  
+- Users must be able to **view their profile**, including their movie lists:  
+  - 🎞️ *Watched*  
+  - 📌 *To Watch*  
+  - ❤️ *Favourite*  
+  - ⭐ *Rated*  
+- Users must be able to **edit their profile** and update their movie ratings.  
+- Users must be able to **view a personalized dashboard** based on their watched movies.  
+
+---
+
+#### 🎥 Movie Management  
+- Users must be able to view a **list of top-watched and top-rated movies**.  
+- Users must be able to access **detailed information about a movie**, including:  
+  - 🎭 Title  
+  - 🎬 Genre  
+  - 📝 Description  
+  - ⭐ Ratings  
+  - 🎭 Cast  
+
+---
+
+#### 🔄 User Interactions  
+- Users must be able to **add movies** to their personal lists:  
+  - 📌 *Watch*  
+  - ❤️ *Favourite*  
+  - ⭐ *Rated*  
+  - ⏳ *To Watch*  
+- Users must be able to **rate a movie** on a scale of **1-10 stars**.  
+
+---
+
+#### 🔍 Search & Navigation  
+- Users must be able to **search for a movie by title**.  
+- Users must be able to **filter movies by genres** (e.g., Fiction, Comedy).  
+
+### 🔒 Non-Functional Requirements  
+
+#### 🔐 Security  
+- The system must support **user authentication** and guarantee that passwords are **securely managed**, utilizing at least basic encryption or hashing techniques.  
+
+---
+
+#### ⚡ Performance  
+- The application should deliver a **responsive experience**, ensuring that **movie searches** and **list loading** happen with minimal delay.  
+
+---
+
+#### 🌍 Compatibility  
+- The system should be **optimized for Google Chrome and Microsoft Edge**, with no requirement for adaptation to other browsers.  
+
+
 
 ## 🛠️ QA  
 
