@@ -181,9 +181,9 @@ You can view the project backlog on GitHub by clicking [here](https://github.com
 
 
 ## 🏛️ Architectural Description  
-### 💻 Technologies used
+### 🔧 Technologies used
 
-### 🔧 Backend 
+###  Backend 
 - **Spring Boot Framework**: Core Java framework powering the application architecture through controllers (HTTP request handling), services (business logic), and models (data structure)
 
 - **MySQL**: Local database system storing application data, working with JPA Repository for streamlined database operations without complex SQL queries
@@ -193,17 +193,22 @@ You can view the project backlog on GitHub by clicking [here](https://github.com
  - CSRF protection against malicious attacks 
  - Google OAuth2 integration for Google account sign-in functionality
 
-### 🗃 Data Management 
+### Data Management 
 - **Data Transfer Objects (DTOs)**: Manages efficient data transfer between frontend and backend layers
 
 - **Java Database Seeder**: Handles database initialization with starter data for development and testing
 
-### 🎨 Frontend 
+### Frontend 
 - **Thymeleaf**: Server-side Java template engine
 - **HTML, JavaScript, and CSS**
   
-### ⚙ External Integration 
+### External Integration 
 - **TMDB API**: Provides real-time movie data, ratings, and cinema information
+
+### ✨ Final Product
+Movie Mingle is a web application designed for movie enthusiasts of all tastes. It provides personalized movie recommendations based on user ratings and offers endless opportunities to explore the vast world of cinema using TMDB’s extensive movie database. Users can effortlessly organize their movie lists into categories such as Watched, To Watch, Favorites, and Rated, making it easier to plan their next movie night. Additionally, the dashboard analytics section allows them to track their viewing activity.
+
+Our final product aligns closely with our initial vision while incorporating enhancements such as API integration for fetching detailed movie information and seeders to populate our database. We also introduced new features, including a Favorites and Rated movies list and Google OAuth integration, elevating the user experience.
   
 ### 🚀 Functional Requirements  
 
