@@ -1,6 +1,8 @@
 package com._errors.MovieMingle.model;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -30,6 +32,13 @@ public class UserWatchedMovie {
         this.movie = movie;
         this.watchedAt = watchedAt;
     }
+
+    public UserWatchedMovie(Long id, Movie movie, LocalDateTime watchedAt) {
+        this.id = id;
+        this.movie = movie;
+        this.watchedAt = watchedAt;
+    }
+
 
     public Long getId() {
         return id;

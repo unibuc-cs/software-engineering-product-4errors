@@ -20,6 +20,14 @@ public class Rating {
 
     private int rating;
 
+    public Rating(Long id, Movie movie, int rating) {
+        this.id = id;
+        this.movie = movie;
+        this.rating = rating;
+    }
+
+    public Rating() {
+    }
 
     public Long getId() {
         return id;
