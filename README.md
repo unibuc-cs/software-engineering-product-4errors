@@ -181,6 +181,30 @@ You can view the project backlog on GitHub by clicking [here](https://github.com
 
 
 ## 🏛️ Architectural Description  
+### 💻 Technologies used
+
+### 🔧 Backend 
+- **Spring Boot Framework**: Core Java framework powering the application architecture through controllers (HTTP request handling), services (business logic), and models (data structure)
+
+- **MySQL**: Local database system storing application data, working with JPA Repository for streamlined database operations without complex SQL queries
+
+- **Security Implementation**: 
+ - JWT (JSON Web Tokens) for secure authentication and session management
+ - CSRF protection against malicious attacks 
+ - Google OAuth2 integration for Google account sign-in functionality
+
+### 🗃 Data Management 
+- **Data Transfer Objects (DTOs)**: Manages efficient data transfer between frontend and backend layers
+
+- **Java Database Seeder**: Handles database initialization with starter data for development and testing
+
+### 🎨 Frontend 
+- **Thymeleaf**: Server-side Java template engine
+- **HTML, JavaScript, and CSS**
+  
+### ⚙ External Integration 
+- **TMDB API**: Provides real-time movie data, ratings, and cinema information
+  
 ### 🚀 Functional Requirements  
 
 #### 👤 User Management  
