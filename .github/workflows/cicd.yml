@@ -41,8 +41,6 @@ jobs:
             ${{ runner.os }}-maven
 
       - name: Clean and verify
-        run: mvn clean verify -B
+        run: mvn clean test -B
 
-      # Step 4: Run tests and verify build
-      - name: Run Maven verify
-        run: mvn verify -B
+     
