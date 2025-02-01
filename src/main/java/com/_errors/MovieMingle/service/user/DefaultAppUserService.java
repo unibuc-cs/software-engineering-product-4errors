@@ -125,6 +125,7 @@ public class DefaultAppUserService implements AppUserService {
         target.setPassword(passwordEncoder.encode(source.getPassword()));
     }
 
+    @Transactional
     @Override
     public AppUser processOAuth2User(String email, String firstName, String lastName, String provider) {
         // Verifică dacă utilizatorul există deja în baza de date
@@ -159,12 +160,8 @@ public class DefaultAppUserService implements AppUserService {
         newUser.setAvatar("general_avatar.png");
 
         newUser = userRepository.save(newUser);
-        userRepository.flush();
 
-        // Actualizează contextul de securitate
-        Authentication authentication = new UsernamePasswordAuthenticationToken(newUser, null, AuthorityUtils.createAuthorityList("USER"));
-        SecurityContextHolder.getContext().setAuthentication(authentication); // Actualizează securitatea cu utilizatorul autentificat
-
+        // Adauga aici un timeout de cateva secunde pana cand se salveaza datele in baza de date
         return newUser;
     }
 

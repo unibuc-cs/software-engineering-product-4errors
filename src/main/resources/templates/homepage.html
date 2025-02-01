@@ -37,7 +37,8 @@
             <li sec:authorize="isAuthenticated()"><a href="/dashboard">My Dashboard</a> </li>
             <li sec:authorize="isAuthenticated()">
                 <a href="/profile" class="profile-link">
-                    <img th:src="'/images/' + ${user.avatar}" alt="Profile" class="avatar-image" />
+                    <img class="avatar-image" th:src="${user != null && user.avatar != null ? '/images/' + user.avatar : '/images/general_avatar.png'}" alt="Profile">
+
                     <span class="profile-text">Profile</span>
                 </a>
             </li>

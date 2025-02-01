@@ -1,10 +1,15 @@
 package com._errors.MovieMingle.config;
 
+import com._errors.MovieMingle.service.user.AppUserService;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -13,13 +18,23 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import com._errors.MovieMingle.security.CustomOAuth2SuccessHandler;
+import java.io.IOException;
 import java.util.Map;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    private final CustomOAuth2SuccessHandler customOAuth2SuccessHandler;
+
+    public SecurityConfig(CustomOAuth2SuccessHandler customOAuth2SuccessHandler) {
+        this.customOAuth2SuccessHandler = customOAuth2SuccessHandler;
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -60,8 +75,10 @@ public class SecurityConfig {
                         .loginPage("/login") // Folosește aceeași pagină de login pentru OAuth2
                         .defaultSuccessUrl("/", true)
                         .failureUrl("/login?error=true")
-                        .userInfoEndpoint(userInfo -> userInfo.userService(oAuth2UserService())) // Adaugă serviciul personalizat
+                        .userInfoEndpoint(userInfo -> userInfo.userService(oAuth2UserService()))
+                        .successHandler(customOAuth2SuccessHandler) // Adaugă handler-ul de succes personalizat
                 )
+
                 .logout(config -> config.logoutSuccessUrl("/"))
                 .build();
     }
