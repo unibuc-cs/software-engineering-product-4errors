@@ -344,7 +344,8 @@ Unit tests are designed to verify the correctness of individual methods and func
 
 ## 2. Integration Tests 🔗
 
-Integration tests validate the interactions between different modules, ensuring that controllers, HTTP request URIs, and other components work seamlessly together. For MovieMingle, we have implemented **17 integration tests** that simulate real-world user interactions (including authentication and secured endpoints) and validate overall system performance. All integration tests have passed. Here is an overview of the main integration test cases:
+Integration tests validate the interactions between different modules, ensuring that controllers, HTTP request URIs, and other components work seamlessly together. For MovieMingle, we have implemented **17 integration tests** that simulate real-world user interactions (including authentication and secured endpoints) and validate overall system performance. In these tests, we used an **in-memory H2 database** to simulate the database environment, ensuring fast and isolated testing. All integration tests have passed. Here is an overview of the main integration test cases:
+
 
 | **Test Case**                                          | **Expected Result**                                     | **Status** |
 |--------------------------------------------------------|---------------------------------------------------------|------------|
