@@ -279,6 +279,121 @@ Our final product aligns closely with our initial vision while incorporating enh
 
 ## 🛠️ QA  
 
+Our **MovieMingle** application has been thoroughly tested using four types of testing strategies. These tests ensure that every component works as expected and that the overall user experience is smooth and reliable.
+
+---
+
+## 1. Unit Tests 🧪
+
+Unit tests are designed to verify the correctness of individual methods and functions. For MovieMingle, we have implemented **50 unit tests** covering key functionalities such as matrix building, user registration, password handling, movie favourites, rating management, and secure token management. Every test case checks for expected results, and **all tests have passed**. Below is a summary table of our main unit test cases:
+
+| **Test Case**                                      | **Expected Result**                              | **Status** |
+|----------------------------------------------------|--------------------------------------------------|------------|
+| `testBuildMatrix`                                  | Matrix built successfully                        | Passed     |
+| `testRatingMatrix`                                 | Rating matrix correctly computed                 | Passed     |
+| `testTrainModel`                                   | Model trained successfully                       | Passed     |
+| `testRecommendMovies`                              | Movies recommended accurately                    | Passed     |
+| `testUpdateRating`                                 | Rating updated correctly                         | Passed     |
+| `testForgottenPassword_Success`                    | Reset password email sent                        | Passed     |
+| `testForgottenPassword_UserNotFound`               | User not found error handled                     | Passed     |
+| `testUpdatePassword_Success`                       | Password updated successfully                    | Passed     |
+| `testUpdatePassword_InvalidToken`                  | Invalid token error handled                      | Passed     |
+| `testUpdatePassword_ExpiredToken`                  | Expired token error handled                      | Passed     |
+| `testUpdatePassword_UserNotFound`                  | User not found error handled                     | Passed     |
+| `testSendResetPasswordEmail_Success`               | Reset password email sent                        | Passed     |
+| `testRegister_UserAlreadyExists`                   | Duplicate user error handled                     | Passed     |
+| `testRegister_Success`                             | User registered successfully                     | Passed     |
+| `testEncodePassword`                               | Password encoded correctly                       | Passed     |
+| `testSendRegistrationConfirmationEmail_Success`    | Confirmation email sent                          | Passed     |
+| `testCheckIfUserExist_UserExists`                  | User exists validation passed                    | Passed     |
+| `testCheckIfUserExist_UserDoesNotExist`            | No user found as expected                        | Passed     |
+| `testAddMovieToFavourites_UserNotFound`            | User not found error handled                     | Passed     |
+| `testAddMovieToFavourites_MovieAlreadyInFavourites`  | Duplicate movie error handled                    | Passed     |
+| `testAddMovieToFavourites_NewMovie`                | New movie added to favourites                    | Passed     |
+| `testIsMovieFavourite_MovieNotInFavourites`        | Movie not in favourites verified                 | Passed     |
+| `testIsMovieFavourite_MovieInFavourites`           | Movie in favourites confirmed                    | Passed     |
+| `testRemoveFromFavourites_UserNotFound`            | User not found error handled                     | Passed     |
+| `testRemoveFromFavourites_MovieNotFound`           | Movie not found error handled                    | Passed     |
+| `testRemoveFromFavourites_MovieNotInFavourites`    | Movie not in favourites handled                  | Passed     |
+| `testRemoveFromFavourites_Success`                 | Movie removed successfully                       | Passed     |
+| `testGetUserFavouriteMovies`                       | Favourite movies retrieved                       | Passed     |
+| `testGetUserDashboardStats`                        | Dashboard stats computed correctly               | Passed     |
+| `testGetUserDashboardStats_NoData`                 | No data scenario handled correctly               | Passed     |
+| `testCreateSecureToken`                            | Secure token created                             | Passed     |
+| `testSaveSecureToken`                              | Secure token saved                               | Passed     |
+| `testFindByToken`                                  | Token found successfully                         | Passed     |
+| `testFindByToken_NotFound`                         | Token not found handled                          | Passed     |
+| `testRemoveToken`                                  | Token removed successfully                       | Passed     |
+| `testRemoveTokenByToken`                           | Token removed by identifier                      | Passed     |
+| `testGetTokenValidityInSeconds`                    | Token validity computed correctly                | Passed     |
+| `testAddRating_UserNotFound`                       | User not found error handled                     | Passed     |
+| `testAddRating_NewMovie`                           | Rating added for a new movie                     | Passed     |
+| `testAddRating_ExistingMovie`                      | Existing movie rating updated                    | Passed     |
+| `testRemoveRating_UserNotFound`                    | User not found error handled                     | Passed     |
+| `testRemoveRating_MovieNotFound`                   | Movie not found error handled                    | Passed     |
+| `testRemoveRating_RatingNotFound`                  | Rating not found error handled                   | Passed     |
+| `testRemoveRating_Success`                         | Rating removed successfully                      | Passed     |
+| `testGetAverageRating_NoRatings`                   | No ratings scenario handled                      | Passed     |
+| `testGetAverageRating_WithRatings`                 | Average rating computed accurately               | Passed     |
+| `testGetUserRating_RatingNotFound`                 | Rating not found error handled                   | Passed     |
+| `testGetUserRating_Success`                        | User rating retrieved successfully               | Passed     |
+| `testGetUserRatedMovies_NoRatings`                 | No rated movies scenario handled                 | Passed     |
+| `testGetUserRatedMovies_WithRatings`               | Rated movies retrieved correctly                 | Passed     |
+
+---
+
+## 2. Integration Tests 🔗
+
+Integration tests validate the interactions between different modules, ensuring that controllers, HTTP request URIs, and other components work seamlessly together. For MovieMingle, we have implemented **17 integration tests** that simulate real-world user interactions (including authentication and secured endpoints) and validate overall system performance. All integration tests have passed. Here is an overview of the main integration test cases:
+
+| **Test Case**                                          | **Expected Result**                                     | **Status** |
+|--------------------------------------------------------|---------------------------------------------------------|------------|
+| `testUserLogin`                                        | User is able to log in successfully                     | Passed     |
+| `testGetUserByEmail`                                   | User retrieved correctly by email                       | Passed     |
+| `testIsMovieWatched`                                   | Movie watched status verified                           | Passed     |
+| `testAddMovieToWatched`                                | Movie added to the watched list successfully            | Passed     |
+| `testAddMovieToWatched_AlreadyWatched`                 | Already watched movie is handled appropriately          | Passed     |
+| `testLoadUserByUsername_UserExists`                    | User details loaded successfully                        | Passed     |
+| `testLoadUserByUsername_UserDoesNotExist`              | Non-existent user error handled                         | Passed     |
+| `testGetUserDashboardStats`                            | Dashboard stats returned accurately                     | Passed     |
+| `testForgottenPassword_UserDoesNotExist`               | Forgotten password for non-existent user handled        | Passed     |
+| `testUpdatePassword_ValidToken`                        | Password updated with a valid token                     | Passed     |
+| `testUpdatePassword_InvalidToken`                      | Invalid token error handled during password update      | Passed     |
+| `testGetProfilePage_UserAuthenticated`                 | Authenticated user can access profile page              | Passed     |
+| `testUpdateAvatar_ValidRequest`                        | Avatar updated successfully after a valid request       | Passed     |
+| `testUpdateAvatar_InvalidRequest`                      | Invalid avatar update request handled correctly         | Passed     |
+| `testGetProfilePage_UserNotAuthenticated`              | Non-authenticated user is denied access                 | Passed     |
+| `testIsMovieToWatch_True`                              | Movie marked to watch is confirmed                      | Passed     |
+| `testAddMovieTotoWatch_Success`                        | Movie added to the watch list successfully              | Passed     |
+
+---
+
+## 3. Manual Testing 🖥️
+
+In addition to automated tests, comprehensive manual testing was conducted to simulate real user interactions. Manual testing allowed us to validate:
+- **Edge cases** that automated tests might not fully capture.
+- **User interface flows** and overall usability.
+- **Error scenarios** to ensure proper error handling and messaging.
+
+This approach ensured that the application behaves as expected in real-world scenarios and provides a seamless user experience.
+
+---
+
+## 4. Performance Testing ⚡
+
+Performance testing was executed using Lighthouse via the browser's Inspect tool. This allowed us to assess:
+- **Page load times**
+- **Responsiveness**
+- **Accessibility**
+- **Adherence to best practices**
+
+The insights gathered from Lighthouse helped us optimize the MovieMingle application for better performance and a superior user experience. The performance tests confirmed that the application remains efficient even under high load.
+
+---
+
+Overall, our comprehensive testing strategy—including **unit tests**, **integration tests**, **manual tests**, and **performance tests**—ensures that MovieMingle is robust, efficient, and reliable. All test cases have passed, guaranteeing that the application meets high standards of quality and performance. 😀
+
+
 ## 🛡️ Security Analysis 
 MovieMingle implements **Spring Security** for authentication, supporting both **email/password login** and **OAuth2 (Google)**. Password reset is secured via **token-based validation**. This analysis aligns with **OWASP Top 10** security risks, identifying key risks and recommending improvements to enhance overall system security.
 
