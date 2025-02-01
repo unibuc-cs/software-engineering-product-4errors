@@ -407,6 +407,16 @@ MovieMingle implements **Spring Security** for authentication, supporting both *
 ---
 
 ## 🚀 CI/CD
+We set up a **CI/CD pipeline** using **GitHub Actions** to streamline testing and maintain **code quality** across different environments. This pipeline automatically triggers on **every commit and pull request**, running **unit tests** to validate core functionalities.
+
+### Key Features:
+- **Automated backend unit testing** to ensure code reliability.
+- **Prevents regressions** by verifying that new changes do not break existing functionality.
+- **Locally hosted backend and database**, ensuring a stable and consistent development workflow.
+
+This setup enhances the development process by providing **continuous validation** and maintaining a high level of **code integrity**.
+
+---
 ### 🛠 Development Environment  
 
 #### 🚀 Backend:  
