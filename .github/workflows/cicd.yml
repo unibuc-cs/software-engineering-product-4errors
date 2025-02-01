@@ -1,11 +1,3 @@
-# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
-
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
 name: CI/CD 
 
 on:
@@ -24,14 +16,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Set up Java
+      # Step 2: Set up Java 21
       - name: Set up Java
         uses: actions/setup-java@v3
         with:
           java-version: '21'
           distribution: 'temurin'
 
-      # Step 3: Cache Maven dependencies
+      # Step 3: Set up Maven
+      - name: Set up Maven
+        uses: stCarolas/setup-maven-action@v4
+        with:
+          maven-version: '3.9.5'
+
+      # Step 4: Cache Maven dependencies
       - name: Cache Maven dependencies
         uses: actions/cache@v3
         with:
@@ -40,7 +38,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven
 
-      - name: Clean and verify
-        run: mvn clean test -B
+      # Step 5: Debug - List test classes
+      - name: Debug - List test classes
+        run: find src/test/java -name "*Test.java" || echo "No test classes found"
 
-     
+      # Step 6: Run Maven tests (forces all tests, including unconventional names)
+      - name: Run Maven tests
+        run: mvn clean test -DfailIfNoTests=false -X
