@@ -407,7 +407,38 @@ MovieMingle implements **Spring Security** for authentication, supporting both *
 ---
 
 ## 🚀 CI/CD
+### 🛠 Development Environment  
 
+#### 🚀 Backend:  
+- Runs locally using *Spring Boot*, started via mvn spring-boot:run.  
+- Connects to a *MySQL database* set up in application.properties for development and testing.  
+- Unit tests are executed to verify functionality before new features are integrated.  
+
+#### 🎨 Frontend:  
+- Developed using *HTML, CSS, and JavaScript* to provide an intuitive user interface.  
+- Operates locally, communicating with the backend through *REST API requests*.  
+
+---
+
+### 🔬 Staging Environment  
+
+#### ⚙ Backend:  
+- Runs in a *staging setup, utilizing a **partially populated MySQL database* to simulate real data scenarios.  
+- Allows for thorough testing before deployment to production.  
+
+#### 🌍 Frontend:  
+- Tested locally but configured to interact with the *staging backend* to ensure compatibility and performance under near-production conditions.  
+
+---
+
+### 🚀 Production Environment  
+
+#### 🔧 Backend:  
+- Fully deployed with a *live MySQL database*, containing actual user data.  
+- Tuned for *high performance, security, and reliability* to handle real-world usage.  
+
+#### 🌐 Frontend:  
+- Rigorously tested and confirmed to work smoothly with the *production backend*, ensuring a seamless user experience.
 
      
 
