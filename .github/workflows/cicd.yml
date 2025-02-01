@@ -42,5 +42,5 @@ jobs:
 
       # Step 6: Run Maven tests with debug mode
       - name: Run unit tests only
-        run: mvn test -Dtest=**/*ServiceTest
+        run: mvn test -Dtest=**/*ServiceTest,**/*MatrixTest,**/*BuilderTest
 
