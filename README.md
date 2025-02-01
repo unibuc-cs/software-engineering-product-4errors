@@ -11,6 +11,10 @@ MovieMingle is a web application that recommends movies to users based on their 
 - [Popa Jasmine](https://github.com/jasminepopa3)
 
 
+## :tv: **[Demo Here](https://youtu.be/sJSJbu-RKXw)**
+
+
+
 ## 🌟 Product Vision
 ▎**FOR** - For people passionate about the world of cinematography.
 
@@ -387,6 +391,8 @@ Performance testing was executed using Lighthouse via the browser's Inspect tool
 - **Responsiveness**
 - **Accessibility**
 - **Adherence to best practices**
+
+<img src="/Diagrams/PerformanceTest.jpg" width="800" alt="PerformanceTest">
 
 The insights gathered from Lighthouse helped us optimize the MovieMingle application for better performance and a superior user experience. The performance tests confirmed that the application remains efficient even under high load.
 
