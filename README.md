@@ -226,10 +226,10 @@ Our final product aligns closely with our initial vision while incorporating enh
 #### 👤 User Management  
 - Users must be able to **create an account** using email and password and log in securely.  
 - Users must be able to **view their profile**, including their movie lists:  
-  - 🎞️ *Watched*  
-  - 📌 *To Watch*  
-  - ❤️ *Favourite*  
-  - ⭐ *Rated*  
+  - *Watched*  
+  - *To Watch*  
+  - *Favourite*  
+  - *Rated*  
 - Users must be able to **edit their profile** and update their movie ratings.  
 - Users must be able to **view a personalized dashboard** based on their watched movies.  
 
@@ -238,20 +238,20 @@ Our final product aligns closely with our initial vision while incorporating enh
 #### 🎥 Movie Management  
 - Users must be able to view a **list of top-watched and top-rated movies**.  
 - Users must be able to access **detailed information about a movie**, including:  
-  - 🎭 Title  
-  - 🎬 Genre  
-  - 📝 Description  
-  - ⭐ Ratings  
-  - 🎭 Cast  
+  - Title  
+  - Genre  
+  - Description  
+  - Ratings  
+  - Cast  
 
 ---
 
 #### 🔄 User Interactions  
 - Users must be able to **add movies** to their personal lists:  
-  - 📌 *Watch*  
-  - ❤️ *Favourite*  
-  - ⭐ *Rated*  
-  - ⏳ *To Watch*  
+  - *Watch*  
+  - *Favourite*  
+  - *Rated*  
+  - *To Watch*  
 - Users must be able to **rate a movie** on a scale of **1-10 stars**.  
 
 ---
@@ -262,17 +262,17 @@ Our final product aligns closely with our initial vision while incorporating enh
 
 ### 🔒 Non-Functional Requirements  
 
-#### 🔐 Security  
+#### Security  
 - The system must support **user authentication** and guarantee that passwords are **securely managed**, utilizing at least basic encryption or hashing techniques.  
 
 ---
 
-#### ⚡ Performance  
+#### Performance  
 - The application should deliver a **responsive experience**, ensuring that **movie searches** and **list loading** happen with minimal delay.  
 
 ---
 
-#### 🌍 Compatibility  
+#### Compatibility  
 - The system should be **optimized for Google Chrome and Microsoft Edge**, with no requirement for adaptation to other browsers.  
 
 
@@ -537,10 +537,10 @@ This setup enhances the development process by providing **continuous validation
 
 #### 🚀 Backend:  
 - Runs locally using *Spring Boot*, started via mvn spring-boot:run.  
-- Connects to a *MySQL database* set up in application.properties for development and testing.  
+- Connects to a MySQL database set up in application.properties for development and testing.  
 - Unit tests are executed to verify functionality before new features are integrated.  
 
-#### 🎨 Frontend:  
+#### Frontend:  
 - Developed using *HTML, CSS, and JavaScript* to provide an intuitive user interface.  
 - Operates locally, communicating with the backend through *REST API requests*.  
 
@@ -548,22 +548,22 @@ This setup enhances the development process by providing **continuous validation
 
 ### 🔬 Staging Environment  
 
-#### ⚙ Backend:  
-- Runs in a *staging setup, utilizing a **partially populated MySQL database* to simulate real data scenarios.  
+#### Backend:  
+- Runs in a staging setup, utilizing a partially populated MySQL database to simulate real data scenarios.  
 - Allows for thorough testing before deployment to production.  
 
-#### 🌍 Frontend:  
+#### Frontend:  
 - Tested locally but configured to interact with the *staging backend* to ensure compatibility and performance under near-production conditions.  
 
 ---
 
 ### 🚀 Production Environment  
 
-#### 🔧 Backend:  
+#### Backend:  
 - Fully deployed with a *live MySQL database*, containing actual user data.  
 - Tuned for *high performance, security, and reliability* to handle real-world usage.  
 
-#### 🌐 Frontend:  
+#### Frontend:  
 - Rigorously tested and confirmed to work smoothly with the *production backend*, ensuring a seamless user experience.
 
      
