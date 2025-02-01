@@ -23,13 +23,7 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
-      # Step 3: Set up Maven
-      - name: Set up Maven
-        uses: stCarolas/setup-maven-action@v4
-        with:
-          maven-version: '3.9.5'
-
-      # Step 4: Cache Maven dependencies
+      # Step 3: Cache Maven dependencies
       - name: Cache Maven dependencies
         uses: actions/cache@v3
         with:
@@ -38,10 +32,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven
 
-      # Step 5: Debug - List test classes
+      # Step 4: Debug - List test classes
       - name: Debug - List test classes
         run: find src/test/java -name "*Test.java" || echo "No test classes found"
 
-      # Step 6: Run Maven tests (forces all tests, including unconventional names)
+      # Step 5: Run Maven tests
       - name: Run Maven tests
         run: mvn clean test -DfailIfNoTests=false -X
