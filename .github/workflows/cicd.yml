@@ -16,7 +16,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Set up Java 21
+      # Step 2: Set up Java
       - name: Set up Java
         uses: actions/setup-java@v3
         with:
@@ -32,10 +32,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven
 
-      # Step 4: Debug - List test classes
+      # Step 4: Remove unnecessary Maven security settings
+      - name: Remove unnecessary Maven security settings
+        run: rm -f ~/.m2/settings-security.xml
+
+      # Step 5: List test classes for debugging
       - name: Debug - List test classes
         run: find src/test/java -name "*Test.java" || echo "No test classes found"
 
-      # Step 5: Run Maven tests
-      - name: Run Maven tests
-        run: mvn clean test -DfailIfNoTests=false -X
+      # Step 6: Run Maven tests with debug mode
+      - name: Run Maven tests with debug
+        run: mvn clean test -X -DfailIfNoTests=false
