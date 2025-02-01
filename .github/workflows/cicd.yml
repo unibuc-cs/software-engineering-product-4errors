@@ -40,6 +40,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven
 
+      - name: Clean and verify
+        run: mvn clean verify -B
+
       # Step 4: Run tests and verify build
       - name: Run Maven verify
         run: mvn verify -B
