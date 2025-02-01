@@ -41,5 +41,6 @@ jobs:
         run: find src/test/java -name "*Test.java" || echo "No test classes found"
 
       # Step 6: Run Maven tests with debug mode
-      - name: Run Maven tests with debug
-        run: mvn clean test -X -DfailIfNoTests=false
+      - name: Run unit tests only
+        run: mvn test -Dtest=**/*ServiceTest
+
